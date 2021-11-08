@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Merriweather:wght@300;400;700;900&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../style/logreg.css">
+</head>
+<body>
+
+<div class="container my-5 py-5">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 py-1">
+                <div class="title-section">
+                    <h2>School.ID</h2>
+                </div>
+                <div class="icon-section">
+                    <img class="hero-icon" src="school.png" alt="" >
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div>   
+                    <table class="mx-auto">
+                        <form method="POST" id="reguser"> 
+                             
+                             <!-- User Name -->
+
+                                 <tr>
+                                    <td colspan="2">
+                                        <label for="uname">User name</label>
+                                        <span id="uname-error"></span>
+                                        <input type="text" class="form-control" name="uname" id="uname" >
+                                    </td>
+                                 </tr>
+            
+                        
+                                 <!-- Password -->
+                                 <tr>
+                                     <td colspan="2">
+                                        <label for="password">Password</label>
+                                        <span id="password-error"></span>
+                                        <input type="password" name="password1" class="form-control" id="password">
+                                        
+                                        <div class="d-flex remember px-2">
+                                            <div>
+                                                <input type="checkbox" name="remember" id="remember">
+                                                <label for="remember" style="font-size: 12px;">remember me</label>
+                                            </div>
+                                            <a href="" style="font-size: 14px; text-decoration: none; margin-top: 3px;">forgot ?</a>
+                                        </div>
+                                     </td>
+                                 </tr>
+
+                            
+                                <!-- Register Button -->
+                                <tr>
+                                    <td colspan="2">
+                                       <button class="btn-outline-success form-control" name="continue" >Login</button>
+                                    </td>
+                                </tr>     
+                        </form>
+                        <tr>
+                            <td>
+                                <span>Have an acoount? <a href="register.html">login here</a></span>
+                            </td>
+                        </tr>
+                    </table> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+</body>
+</html>
