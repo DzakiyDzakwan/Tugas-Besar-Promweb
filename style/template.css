@@ -75,3 +75,8 @@ th, td {
 .table-data .table-body {
     font-family: 'Roboto Condensed', sans-serif;;
 }
+
+/* pagination style */
+.new_pagination{
+    width: 50%;
+}
