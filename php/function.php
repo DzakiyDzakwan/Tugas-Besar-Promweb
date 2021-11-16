@@ -131,4 +131,37 @@ function show($query) {
     return $box;
 }
 
+//Cari Siswa
+function cariSiswa($data) {
+    
+    $keyword = $data["keyword"];
+    $filter = $data["filter"];
+
+    if(empty($keyword)) {
+        $hasil = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE kelas.jurusan LIKE '%$filter%'";
+    } elseif(empty($filter)) {
+        $hasil = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%'";
+    } else {
+        $hasil = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE kelas.jurusan LIKE '%$filter%' AND nama LIKE '%$keyword%'";
+    }
+
+    return show($hasil);
+}
+
+function cariGuru($data) {
+
+}
+
+function cariMapel($data) {
+
+}
+
+function cariKelas($data) {
+
+}
+
+function cariUSer($data) {
+    
+}
+
 ?>

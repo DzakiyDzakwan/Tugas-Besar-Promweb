@@ -6,7 +6,7 @@ require 'function.php';
 
  //var_dump($_COOKIE);
 
- //var_dump($_SESSION);
+ var_dump($_SESSION);
 
  if (!isset($_SESSION["admin"])) {
    header('Location: login.php');

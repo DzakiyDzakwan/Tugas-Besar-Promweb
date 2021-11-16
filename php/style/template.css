@@ -76,9 +76,7 @@ th, td {
     font-family: 'Roboto Condensed', sans-serif;;
 }
 
-/*---------------- Pagination------------ */
-
-.new-pagination {
-    width: 50% !important;
-    font-family: 'Roboto Condensed';
+/* pagination style */
+.new_pagination{
+    width: 50%;
 }
