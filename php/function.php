@@ -1,5 +1,7 @@
 <?php
 
+$connection = mysqli_connect("localhost","root","","tubes");
+
 function daftar($data) {
 
 global $connection;
