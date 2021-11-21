@@ -25,15 +25,16 @@ if (isset($_GET["page"])) {
 
 $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
 
+//Show Data
 $siswa = show("SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id LIMIT $dataAwal, $dataPerhalaman ");
 $i = $dataAwal + 1;
 
 //searching/filter
-
 if(isset($_POST["find"])) {
-    $siswa = cariSiswa($_POST);
-}
 
+  //cariSiswa($_POST);
+  $siswa = cariSiswa($_POST);
+}
 
 
 
