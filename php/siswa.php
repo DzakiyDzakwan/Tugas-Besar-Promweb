@@ -1,12 +1,14 @@
 <?php 
 
-if(isset($_SESSION["login"])) {
-    header('Location: login.php');
-}
+//Function
+require 'function.php';
 
+//session
 session_start();
 
-require 'function.php';
+if(!isset($_SESSION["login"])) {
+  header("Location: login.php");
+}
 
 //pagination
 $totalData = count(show("SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id ")) ;
@@ -24,17 +26,11 @@ if (isset($_GET["page"])) {
 $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
 
 $siswa = show("SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id LIMIT $dataAwal, $dataPerhalaman ");
-$id = $dataAwal + 1;
+$i = $dataAwal + 1;
 
 //searching/filter
 
 if(isset($_POST["find"])) {
-    /* $keyword = $_POST["keyword"];
-    $filter = $_POST["filter"];
-
-    var_dump($filter);
-    var_dump($keyword); */
-
     $siswa = cariSiswa($_POST);
 }
 
@@ -100,33 +96,82 @@ if(isset($_POST["find"])) {
             
             <?php foreach($siswa as $ssw) : ?>
                 <tr class="tbody">
-                    <td class="table-body"><?=$id?></td>
-                    <td class="table-body"><?php echo $ssw["nama"] ?></td>
-                    <td class="table-body"><?= $ssw["nis"]?></td>
+                    <td class="table-body"><?=$i?></td>
+                    <td class="table-body"><?=$ssw["nama"] ?></td>
+                    <td class="table-body"><?=$ssw["nis"]?></td>
                     <td class="table-body"><?=$ssw["kelas"]?></td>
                     <td class="table-body"><?=$ssw["jurusan"]?></td>
+
                      <?php if(isset($_SESSION["admin"])) : ?>
-                        <td>
-                        <a href="" class="btn btn-success">Edit</a>
-                        <a href="" class="btn btn-danger">Delete</a>
-                    </td>
+                      <td>
+                  <!-- <a href="edit.php?id=<?=$ssw["id"]?>" class="btn btn-success">Edit</a> -->
+                  <!-- <a href="" class="btn btn-danger">Delete</a> -->
+
+                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?=$ssw["id"]?>">
+                    Delete
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="delete<?=$ssw["id"]?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Data akan dihapus dan tidak dapat dikembalikan, Yakin ingin menghapus data ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                          <a href="deletesiswa.php?id=<?=$ssw["id"]?>" class="btn btn-outline-danger">Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+
                     <?php endif; ?>
+
                 </tr>
-            <?php $id ++ ?>   
+            <?php $i++ ?>   
             <?php endforeach ; ?>
   
           </table>
         </div>
         
 
-        <!-- pagination -->
+        <!-- Pagination -->
         <div class="my-3">
-          <nav aria-label="Page navigation example" class="mx-auto new_pagination">
-              <ul class="pagination justify-content-start">
-                <?php for($j = 1; $j <= $jumlahHalaman ; $j ++) : ?>
-                <li class="page-item"><a class="page-link" href="?page=<?=$j?>"><?=$j?></a></li>
-                <?php endfor; ?>
-              </ul>
+          <nav aria-label="Page navigation example" class="mx-auto new-pagination">
+            <ul class="pagination">
+              <?php if($halamanAktif != 1) : ?>
+              <li class="page-item">
+                <a class="page-link" href="?page<?=$j - 1?>" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <?php endif ; ?>
+              
+              <?php for($j=1; $j <= $jumlahHalaman; $j++) : ?>
+              
+                <?php if($j == $halamanAktif) : ?>
+                  <li class="page-item"><a class="page-link" href="?page=<?=$j?>"><?=$j?></a></li>
+                <?php else : ?>
+                  <li class="page-item"><a class="page-link text-dark" href="?page=<?=$j?>"><?=$j?></a></li>
+                <?php endif ; ?>
+
+              <?php endfor ; ?>
+
+              <?php if($halamanAktif != 1) : ?>
+              <li class="page-item">
+                <a class="page-link" href="?page<?=$j + 1?>" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              <?php endif ; ?>
+            </ul>
           </nav>
         </div>
 

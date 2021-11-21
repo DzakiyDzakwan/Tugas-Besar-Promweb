@@ -1,12 +1,13 @@
 <?php
 
+//fucntion
+require 'function.php';
+
 session_start();
 
-// if(isset($_SESSION["login"])) {
-//     header('Location: login.php');
-// }
-
-require 'function.php';
+ if(!isset($_SESSION["login"])) {
+    header('Location: login.php');
+ }
 
 //pagination
 $totalData = count(show("SELECT * from user")) ;
@@ -23,17 +24,14 @@ if (isset($_GET["page"])) {
 
 $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
 
+//show data
 $user = show("SELECT * from user LIMIT $dataAwal, $dataPerhalaman");
-$id = $dataAwal + 1;
+
+
+$i = $dataAwal + 1;
 
 
 ?>
-
-
-
-
-
-
 
 
 <!DOCTYPE html>
@@ -52,92 +50,7 @@ $id = $dataAwal + 1;
 
    <?php include 'navbar.php' ?>
     
-      <!-- offcanvas -->
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="width: 350px;">
-        <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel" style="text-align: center; flex-grow: 1;">Menu</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <!-- offcanvas-Body -->
-        <div class="offcanvas-body">
-            <!-- Accordion -->
-            <div class="accordion accordion-flush" id="accordionFlushExample">
-        
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        <i class="me-2 fas fa-user-shield"></i>Admin 
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                        <div class="list-group">
-                            <a href="admin.html" class="list-group-item list-group-item-action">Dashboard <i class="ms-2 fas fa-tachometer-alt"></i></a>
-                            <a href="createmapel.html" class="list-group-item list-group-item-action">Add Mata Pelajaran <i class="ms-2 fas fa-plus"></i></a>
-                            <a href="createclass.html" class="list-group-item list-group-item-action">Add Kelas <i class="ms-2 fas fa-plus"></i></a>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseOne">
-                        <i class=" me-2 fas fa-table"></i>Table 
-                        </button>
-                    </h2>
-                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                        <div class="list-group">
-                            <a href="siswa.html" class="list-group-item list-group-item-action">Siswa</a>
-                            <a href="guru.html" class="list-group-item list-group-item-action">Guru</a>
-                            <a href="kelas.html" class="list-group-item list-group-item-action">Kelas</a>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTree" aria-expanded="false" aria-controls="flush-collapseOne">
-                        <i class="me-2 fas fa-chalkboard"></i>Mapel
-                        </button>
-                    </h2>
-                    <div id="flush-collapseTree" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                        <div class="list-group">
-                            <ul>
-                            <li><a href="#" class="list-group-item list-group-item-action">Matematika</a></li>
-                            <li><a href="#" class="list-group-item list-group-item-action">B.Indonesia</a></li>
-                            <li><a href="#" class="list-group-item list-group-item-action">Pancasila</a></li>
-                            </ul>           
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-    
-                    <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseOne">
-                        <i class="me-2 fas fa-tasks"></i>Tugas
-                        </button>
-                    </h2>
-                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                            <div class="list-group">
-                                <ul>
-                                <li><a href="#" class="list-group-item list-group-item-action">Membuat Diagram Sesuai dengan kaidah nya masing masing</a></li>
-                                <li><a href="#" class="list-group-item list-group-item-action">Website Sederhana</a></li>
-                                <li><a href="#" class="list-group-item list-group-item-action">blablabla</a></li>
-                                </ul>           
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-    
+    <!-- Konten -->
     <div class="container my-4 px-4 py-3 table-data">
 
         <!--Data Table-->
@@ -167,6 +80,7 @@ $id = $dataAwal + 1;
               <td class="table-header">Email</td>
               <td class="table-header">Status</td>
               <td class="table-header">Created At</td>
+
                 <?php if(isset($_SESSION["admin"])) : ?>
                   <td class="table-header">Action</td>
                 <?php endif ; ?>
@@ -174,32 +88,85 @@ $id = $dataAwal + 1;
   
             <?php foreach($user as $usr) : ?>
               <tr class="tbody">
-                <td class="table-body"><?= $id ?></td>
-                <td class="table-body"><?php echo $usr["username"] ?></td>
+                <td class="table-body"><?= $i ?></td>
+                <td class="table-body"><?= $usr["username"] ?></td>
                 <td class="table-body"><?= $usr["email"] ?></td>
                 <td class="table-body"><?= $usr["status"] ?></td>
                 <td class="table-body"><?= $usr["Created_at"] ?></td>
+
                   <?php if(isset($_SESSION["admin"])) : ?> 
                     <td>
-                      <a href="" class="btn btn-success">Edit</a>
-                      <a href="" class="btn btn-danger">Delete</a>
-                    </td>
+                    <?php if($usr["status"] === 'ADMIN') : ?>
+                    <!-- <a href="" class="btn btn-success">Edit</a> -->
+                    <!-- <a href="" class="btn btn-danger">Delete</a> -->
+                      <button type="button" class="btn btn-danger disabled" data-bs-toggle="modal" data-bs-target="#delete">
+                      Delete
+                    </button>
+                    <?php else : ?>
+                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?=$usr["id"]?>">
+                      Delete
+                      </button>
+                    <?php endif ; ?>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="delete<?=$usr["id"]?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Data akan dihapus dan tidak dapat dikembalikan, Yakin ingin menghapus data ?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                            <a href="deleteuser.php?id=<?=$usr["id"]?>" class="btn btn-outline-danger">Delete</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </td>
                   <?php endif ; ?>
+
               </tr>
-          <?php $id ++ ?>   
+          <?php $i++ ?>   
           <?php endforeach ; ?>
           </table>
         </div>
         
         
-        <!-- pagination -->
+        <!-- Pagination -->
         <div class="my-3">
-          <nav aria-label="Page navigation example" class="mx-auto new_pagination">
-              <ul class="pagination justify-content-start">
-                <?php for($j = 1; $j <= $jumlahHalaman ; $j ++) : ?>
-                <li class="page-item"><a class="page-link" href="?page=<?=$j?>"><?=$j?></a></li>
-                <?php endfor; ?>
-              </ul>
+          <nav aria-label="Page navigation example" class="mx-auto new-pagination">
+            <ul class="pagination">
+              <?php if($halamanAktif != 1) : ?>
+              <li class="page-item">
+                <a class="page-link" href="?page<?=$j - 1?>" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <?php endif ; ?>
+              
+              <?php for($j=1; $j <= $jumlahHalaman; $j++) : ?>
+              
+                <?php if($j == $halamanAktif) : ?>
+                  <li class="page-item"><a class="page-link" href="?page=<?=$j?>"><?=$j?></a></li>
+                <?php else : ?>
+                  <li class="page-item"><a class="page-link text-dark" href="?page=<?=$j?>"><?=$j?></a></li>
+                <?php endif ; ?>
+
+              <?php endfor ; ?>
+
+              <?php if($halamanAktif != 1) : ?>
+              <li class="page-item">
+                <a class="page-link" href="?page<?=$j + 1?>" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              <?php endif ; ?>
+            </ul>
           </nav>
         </div>
 

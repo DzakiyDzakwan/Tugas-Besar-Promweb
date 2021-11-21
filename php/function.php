@@ -114,6 +114,53 @@ function addSiswa($data){
 
 }
 
+function addMapel($data) {
+
+    global $connection;
+
+    $name = htmlspecialchars($data["mapelname"]);
+
+    //check data kosong
+    if (empty($name)) {
+        return false;
+    }
+
+    //check nama ssudha tersedia atau belum
+
+    $check = mysqli_query($connection, "SELECT * FROM mapel WHERE nama_mapel = '$name'");
+
+    if (mysqli_num_rows($check) === 1) {
+        return false ;
+    }
+
+    $query = mysqli_query($connection, "INSERT INTO mapel(nama_mapel) VALUES('$name')");
+
+    return mysqli_affected_rows($connection);
+
+
+}
+
+function addKelas($data) {
+
+    global $connection;
+
+    $nama = $data["nama"];
+    $wali = $data["walikelas"];
+    $jurusan = $data["jurusan"];
+
+    //check guru sudah menjadi wali atau belum
+    $walicheck = mysqli_query($connection, "SELECT * FROM kelas WHERE wali_kelas = $wali");
+
+    if(mysqli_num_rows($walicheck) > 0 ) {
+        return false;
+    } else {
+       $query = mysqli_query($connection, "INSERT INTO kelas(nama_kelas,wali_kelas,jurusan) VALUES('$nama','$wali','$jurusan')");
+    }
+
+    return mysqli_affected_rows($connection) ;
+
+}
+
 function show($query) {
 
     global $connection;
@@ -154,6 +201,20 @@ function cariGuru($data) {
 
 function cariMapel($data) {
 
+    $keyword = $data["keyword"];
+
+    $search = "SELECT * FROM mapel WHERE nama_mapel LIKE '%$keyword%'";
+    
+    /* if(empty($searchnama)) {
+        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id WHERE kelas.jurusan LIKE '%$filter%'";
+    } elseif (empty($filter)) {
+        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id WHERE kelas.nama_kelas LIKE '%$searchnama%'";
+    } else {
+        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id WHERE kelas.nama_kelas LIKE '%$searchnama%' AND kelas.jurusan LIKE '%$filter%' ";
+    } */
+
+    return show($search);
+
 }
 
 function cariKelas($data) {
@@ -163,5 +224,116 @@ function cariKelas($data) {
 function cariUSer($data) {
     
 }
+
+/* Edit */
+function editUSer($data) {
+
+    global $connection;
+
+    $id = $data["id"];
+    $uname = strtolower(stripslashes($data["uname"]));
+    $email = stripslashes($data["email"]);
+    $oldpass = $data["passwordold"];
+    $newpass = mysqli_real_escape_string($connection, $data["passwordnew"]);
+    $passwordconfirm = mysqli_real_escape_string($connection, $data["passwordconfirm"]);
+    $password = password_hash($newpass, PASSWORD_DEFAULT);
+
+    //Check Kosong atau enggak
+    if(empty($id) || empty($uname) || empty($email) || empty($oldpass) || empty($newpass) || empty($passwordconfirm)) {
+        return false;
+    }
+
+    //check username
+    $checkUname = mysqli_query($connection,"SELECT * FROM user WHERE username = '$uname'");
+
+    if (mysqli_num_rows($checkUname) > 0) {
+
+        return false;
+
+    }
+
+    //Check Email
+    $checkEmail = mysqli_query($connection, "SELECT * FROM user WHERE email = '$email'");
+
+    if (mysqli_num_rows($checkEmail) > 0) {
+
+        return false;
+
+    }
+
+    //Check Old Password
+    $passwordCheck = mysqli_query($connection, "SELECT * FROM user WHERE id = '$id'");
+
+    $item = mysqli_fetch_assoc($passwordCheck);
+
+    if(!password_verify($oldpass, $item["password"])) {
+
+        return false;
+        
+    }
+
+    //Check confirmation password
+
+    if ($newpass !== $passwordconfirm) {
+
+        return false;
+
+    }
+
+    mysqli_query($connection, "UPDATE user SET username = '$uname', email = '$email', password = '$password' WHERE id = $id");
+
+    return mysqli_affected_rows($connection);
+
+}
+
+function editProfil($data) {
+
+    global $connection;
+
+    $id = $data["id"];
+    $nama = htmlspecialchars($data["nama"]);
+    $ninduk = htmlspecialchars($data["ninduk"]);
+
+    if (empty($nama) || empty($ninduk)) {
+        return false;
+    }
+
+    if ($_SESSION["member"] === "siswa") {
+        $query = "UPDATE siswa SET nama_siswa = '$nama', NIS = '$ninduk' WHERE user_id = $id";
+    } else {
+        $query = "UPDATE guru SET nama_guru = '$nama', NIG = '$ninduk' WHERE user_id = $id";
+    }
+
+    mysqli_query($connection, $query);
+
+    return mysqli_affected_rows($connection);
+}
+
+function editMapel($data) {
+
+    global $connection;
+
+    $name = htmlspecialchars($data["mapelname"]);
+    $id = $data["id"];
+
+    if (empty($name)) {
+        return false ;
+    }
+
+    //check nama sudaa tersedia atau belum
+
+    $check = mysqli_query($connection, "SELECT * FROM mapel WHERE nama_mapel = '$name'");
+
+    if (mysqli_num_rows($check) === 1) {
+        return false ;
+    }
+
+    mysqli_query($connection, "UPDATE mapel SET nama_mapel = '$name' WHERE id = $id");
+
+    return mysqli_affected_rows($connection);   
+
+}
+
+
 
 ?>

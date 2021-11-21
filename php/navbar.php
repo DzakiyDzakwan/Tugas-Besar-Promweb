@@ -60,8 +60,8 @@ if(isset($_SESSION["admin"])) {
                     <?php if(isset($_SESSION["member"])) : ?>
                     <li><a class="dropdown-item text-primary" href="#">Profile <i class="ms-2 fas fa-user"></i></a></li>
                     <?php endif ; ?>
-                    <li><a class="dropdown-item text-success" href="#">Edit Profile <i class="ms-2 fas fa-user-cog"></i></a></li>      
-                    <li><a class="dropdown-item text-danger" href="logout.php">Logout<i class="ms-2 fas fa-power-off"></i> </a></li>
+                    <li><a class="dropdown-item text-success" href="editprofil.php">Edit Profile <i class="ms-2 fas fa-user-cog"></i></a></li> 
+                    <li><a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Logout<i class="ms-2 fas fa-power-off"></i> </a></li>
                 </ul>
               </li>
             </ul>
@@ -69,6 +69,23 @@ if(isset($_SESSION["admin"])) {
     
         </div>
       </nav>
+
+      <!--Logout-Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="exampleModalLabel">Log Out</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"> Yakin Ingin Keluar ?</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                <a type="button" href="logout.php" class="btn btn-outline-danger">Logout</a>
+            </div>
+            </div>
+        </div>
+     </div>
     
       <!-- offcanvas -->
       <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="width: 350px;">

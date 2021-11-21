@@ -1,13 +1,14 @@
 <?php 
 
-if(isset($_SESSION["login"])) {
-    header('Location: login.php');
-}
-
-session_start();
-
+//function
 require 'function.php';
 
+//Session
+session_start();
+
+if(!isset($_SESSION["login"])) {
+    header('Location: login.php');
+}
 
 //pagination
 $totalData = count(show("SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id ")) ;
@@ -25,7 +26,8 @@ if (isset($_GET["page"])) {
 $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
 
 $guru = show("SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id LIMIT $dataAwal, $dataPerhalaman ");
-$id = $dataAwal + 1;
+
+$i = $dataAwal + 1;
 
 //searching/filter
 
@@ -93,33 +95,80 @@ if(isset($_POST["find"])) {
 
         <?php foreach($guru as $gru) : ?>
         <tr class="tbody">
-            <td class="table-body"><?=$id?></td>
-            <td class="table-body"><?php echo $gru["nama"] ?></td>
-            <td class="table-body"><?= $gru["nig"]?></td>
+            <td class="table-body"><?=$i?></td>
+            <td class="table-body"><?=$gru["nama"] ?></td>
+            <td class="table-body"><?=$gru["nig"]?></td>
             <td class="table-body"><?=$gru["mapel"]?></td>
-                <?php if(isset($_SESSION["admin"])) : ?>
-            <td>
-                <a href="" class="btn btn-success">Edit</a>
-                <a href="" class="btn btn-danger">Delete</a>
-            </td>
+
+            <?php if(isset($_SESSION["admin"])) : ?>
+                <td>
+                  <!-- <a href="editguru.php?id=<?=$gru["id"]?>" class="btn btn-success">Edit</a> -->
+                  <!-- <a href="deleteguru.php?id=<?=$gru["id"]?>" class="btn btn-danger">Delete</a> -->
+
+                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?=$gru["id"]?>">
+                    Delete
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="delete<?=$gru["id"]?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Data dan semua yang bersangkutan akan dihapus dan tidak dapat dikembalikan, Yakin ingin menghapus data ?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                          <a href="deleteguru.php?id=<?=$gru["id"]?>" class="btn btn-outline-danger">Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
             <?php endif; ?>
         </tr>
-    <?php $id ++ ?>   
+    <?php $i++ ?>   
     <?php endforeach ; ?>             
         </table>
     </div>
 
 
-        <!-- pagination -->
-    <div class="my-3">
-        <nav aria-label="Page navigation example" class="mx-auto new_pagination">
-            <ul class="pagination justify-content-start">
-                <?php for($j = 1; $j <= $jumlahHalaman ; $j ++) : ?>
-                <li class="page-item"><a class="page-link" href="?page=<?=$j?>"><?=$j?></a></li>
-                <?php endfor; ?>
+     <!-- Pagination -->
+     <div class="my-3">
+          <nav aria-label="Page navigation example" class="mx-auto new-pagination">
+            <ul class="pagination">
+              <?php if($halamanAktif != 1) : ?>
+              <li class="page-item">
+                <a class="page-link" href="?page<?=$j - 1?>" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <?php endif ; ?>
+              
+              <?php for($j=1; $j <= $jumlahHalaman; $j++) : ?>
+              
+                <?php if($j == $halamanAktif) : ?>
+                  <li class="page-item"><a class="page-link" href="?page=<?=$j?>"><?=$j?></a></li>
+                <?php else : ?>
+                  <li class="page-item"><a class="page-link text-dark" href="?page=<?=$j?>"><?=$j?></a></li>
+                <?php endif ; ?>
+
+              <?php endfor ; ?>
+
+              <?php if($halamanAktif != 1) : ?>
+              <li class="page-item">
+                <a class="page-link" href="?page<?=$j + 1?>" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              <?php endif ; ?>
             </ul>
-        </nav>
-    </div>
+          </nav>
+        </div>
 
 
 </div>
