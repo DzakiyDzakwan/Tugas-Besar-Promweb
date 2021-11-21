@@ -46,7 +46,7 @@
 
         <!-- Konten -->
 
-        <div class="container create-container my-5 px-4 py-3">
+        <div class="container create-container my-5 px-4 py-3 border">
 
             <!-- Create-Form -->
             <div class="create-form mx-auto">

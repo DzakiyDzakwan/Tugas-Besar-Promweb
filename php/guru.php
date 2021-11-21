@@ -27,17 +27,13 @@ $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
 
 $guru = show("SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id LIMIT $dataAwal, $dataPerhalaman ");
 
+$mapel = show("SELECT * FROM mapel");
+
 $i = $dataAwal + 1;
 
 //searching/filter
 
 if(isset($_POST["find"])) {
-    /* $keyword = $_POST["keyword"];
-    $filter = $_POST["filter"];
-
-    var_dump($filter);
-    var_dump($keyword); */
-
     $guru = cariGuru($_POST);
 }
 
@@ -62,7 +58,7 @@ if(isset($_POST["find"])) {
     <?php include 'navbar.php' ?>
 
     <!-- Isi Konten -->
-<div class="container my-4 px-4 py-3 table-data">
+<div class="container my-4 px-4 py-3 table-data border">
 
     <!--Data Table-->
     <div class="table-title">
@@ -70,13 +66,14 @@ if(isset($_POST["find"])) {
     </div>
 
         <!--  Searchbar -->
-    <form class="d-flex search my-3 mx-auto">
-            <input class="form-control me-2" type="search" placeholder="Search Guru" aria-label="Search" name="search" autocomplete="off">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        <select class="btn ms-3 btn-outline-dark" name="" id="">
+    <form class="d-flex search my-3 mx-auto" method="POST">
+            <input class="form-control me-2" type="search" placeholder="Search Guru" aria-label="Search" name="keyword" autocomplete="off">
+            <button class="btn btn-outline-success" type="submit" name="find">Search</button>
+        <select class="btn ms-3 btn-outline-dark" name="filter" id="">
             <option value="">Mata Pelajaran</option>
-            <option value="">Matematika</option>
-            <option value="">Fisika</option>
+            <?php foreach($mapel  as $mpl) : ?>
+              <option value="<?=$mpl["id"]?>"><?=$mpl["nama_mapel"]?></option>
+            <?php endforeach ; ?>
         </select>
     </form>
 

@@ -60,7 +60,7 @@ if(isset($_POST["find"])) {
    <?php include 'navbar.php' ?>
     
      <!--  Ini Konten -->
-    <div class="container my-4 px-4 py-3 table-data">
+    <div class="container my-4 px-4 py-3 table-data border">
 
         <!--Data Table-->
 

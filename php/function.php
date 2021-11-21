@@ -204,6 +204,19 @@ function cariSiswa($data) {
 
 function cariGuru($data) {
 
+    $keyword = $data["keyword"];
+    $filter = $data["filter"];
+    
+    if(empty($keyword)) {
+        $search = "SELECT guru.nama_guru, guru.id, guru.NIG, mapel.nama_mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE mapel.id LIKE '%$filter%'";
+    } elseif (empty($filter)) {
+        $search = "SELECT guru.nama_guru, guru.id, guru.NIG, mapel.nama_mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%'";
+    } else {
+        $search = "SELECT guru.nama_guru, guru.id, guru.NIG, mapel.nama_mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%' AND mapel.id LIKE '%$filter%' ";
+    }
+
+    return show($search);
+
 }
 
 function cariMapel($data) {
