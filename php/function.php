@@ -189,11 +189,11 @@ function cariSiswa($data) {
     } 
         
     if(empty($keyword)) {
-        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE kelas.jurusan LIKE '%$filter%'" ;
+        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE kelas.jurusan LIKE '%$filter%' ORDER BY siswa.nama_siswa ASC" ;
     } elseif(empty($filter)) {
-        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%'";
+        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%' ORDER BY siswa.nama_siswa ASC";
     } else {
-        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%' AND kelas.jurusan LIKE '%$filter%'";
+        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%' AND kelas.jurusan LIKE '%$filter%' ORDER BY siswa.nama_siswa ASC";
     }
 
     //return var_dump($filter);
@@ -208,11 +208,11 @@ function cariGuru($data) {
     $filter = $data["filter"];
     
     if(empty($keyword)) {
-        $search = "SELECT guru.nama_guru, guru.id, guru.NIG, mapel.nama_mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE mapel.id LIKE '%$filter%'";
+        $search = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE mapel.id LIKE '%$filter%' ORDER BY guru.nama_guru ASC";
     } elseif (empty($filter)) {
-        $search = "SELECT guru.nama_guru, guru.id, guru.NIG, mapel.nama_mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%'";
+        $search = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%' ORDER BY guru.nama_guru ASC";
     } else {
-        $search = "SELECT guru.nama_guru, guru.id, guru.NIG, mapel.nama_mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%' AND mapel.id LIKE '%$filter%' ";
+        $search = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%' AND mapel.id LIKE '%$filter%' ORDER BY guru.nama_guru ASC ";
     }
 
     return show($search);
@@ -227,7 +227,7 @@ function cariMapel($data) {
         return false;
     }
 
-    $search = "SELECT * FROM mapel WHERE nama_mapel LIKE '%$keyword%' ORDER BY mapel.nama_mapel";
+    $search = "SELECT * FROM mapel WHERE nama_mapel LIKE '%$keyword%' ORDER BY mapel.nama_mapel ASC";
 
     return show($search);
 

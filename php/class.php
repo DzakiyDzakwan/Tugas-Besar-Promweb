@@ -25,16 +25,17 @@ if (isset($_GET["page"])) {
 
 $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
 
+//SHOW
 $kelas = show ("SELECT kelas.id as id , kelas.nama_kelas as kelas, kelas.jurusan as jurusan, guru.nama_guru as wali FROM kelas JOIN guru on kelas.wali_kelas = guru.id LIMIT $dataAwal, $dataPerhalaman ") ;
 $i = $dataAwal + 1;
 
-
+//Search/Filter
 if(isset($_POST["find"])) {
 
   $kelas = cariKelas($_POST);
 }
 
-//var_dump($kelas);
+
 
 ?>
 

@@ -32,11 +32,10 @@ $mapel = show("SELECT * FROM mapel  LIMIT $dataAwal, $dataPerhalaman");
 
 $i = $dataAwal + 1;
 
-
-//var_dump($dataPerhalaman);
-
-
-//var_dump($mapel);
+//SEARCH
+if(isset($_POST["find"])) {
+  $mapel = cariMapel($_POST);
+}
 
 ?>
 
@@ -65,9 +64,9 @@ $i = $dataAwal + 1;
         </div>
         
        <!--  Searchbar -->
-        <form class="d-flex search my-3 mx-auto">
-          <input class="form-control me-2" type="search" placeholder="Search Mapel" aria-label="Search" name="search" autocomplete="off">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+        <form class="d-flex search my-3 mx-auto" method="POST">
+          <input class="form-control me-2" type="search" placeholder="Search Mapel" aria-label="Search" name="keyword" autocomplete="off">
+          <button class="btn btn-outline-success" type="submit" name="find">Search</button>
         </form>
 
         <div class="container-fluid mt-3">
