@@ -23,7 +23,7 @@ if(isset($_SESSION["member"])) {
     if($_SESSION["member"] === "siswa") {
         $profil = show("SELECT * FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE user_id = $userID")[0];
     } else {
-        $profil = show("SELECT * FROM guru WHERE user_id = $userID")[0];
+        $profil = show("SELECT * FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE user_id = $userID")[0];
     }
 }
 
@@ -172,6 +172,13 @@ if(isset($_POST["updateuser"])) {
                         <td class="px-2">:</td>
                         <td class="py-3 px-3 data"> <?=$user["email"]?> </td>
                     </tr>
+
+                    <tr>
+                        <td class="px-3 py-3 data-title">Mapel</td>
+                        <td class="px-2">:</td>
+                        <td class="py-3 px-4 data"> <?=$profil["nama_mapel"]?> </td>
+                    </tr>
+
 
                 <?php endif ; ?>
                 <?php endif ; ?>
