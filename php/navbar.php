@@ -4,6 +4,7 @@ $connection = mysqli_connect("localhost","root","","tubes");
 
 $id = $_SESSION["userID"];
 
+//data user/profil
 if(isset($_SESSION["admin"])) {
    
     $admin = mysqli_query($connection, "SELECT username FROM user WHERE id = $id");
@@ -11,17 +12,30 @@ if(isset($_SESSION["admin"])) {
     $data = mysqli_fetch_assoc($admin);
 } elseif (isset($_SESSION["member"])) {
     if ($_SESSION["member"] === "siswa") {
-            $namaSiswa = mysqli_query($connection, "SELECT nama_siswa FROM siswa WHERE user_id = $id");
+            $namaSiswa = mysqli_query($connection, "SELECT * FROM siswa WHERE user_id = $id");
 
             $data = mysqli_fetch_assoc($namaSiswa);
+
+            //Navbar Mapel Siswa
+            $navbarID = $data["kelas_id"];
+            $navbar = show("SELECT * FROM mapel_kelas JOIN kelas ON mapel_kelas.kelas = kelas.id WHERE kelas = $navbarID");
+
     } else {
 
-            $namaGuru = mysqli_query($connection, "SELECT nama_guru FROM guru WHERE user_id = $id");
+            $namaGuru = mysqli_query($connection, "SELECT * FROM guru WHERE user_id = $id");
 
             $data = mysqli_fetch_assoc($namaGuru);
 
+            //Navbar Mapel guru
+            $navbarID = $data["id"];
+            $navbar = show("SELECT mapel_kelas.id as id, kelas.nama_kelas as kelas,kelas.jurusan as jurusan, kelas.id as kelasid FROM mapel_kelas JOIN kelas ON mapel_kelas.kelas = kelas.id WHERE guru = $navbarID");
+
     }
 }
+
+//$navbarItem = mysqli_fetch_assoc($navbar) ;
+
+//var_dump($navbar);
 
 ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid border sticky-top">
@@ -182,9 +196,9 @@ if(isset($_SESSION["admin"])) {
                                 <div class="accordion-body">
                                 <div class="list-group">
                                     <ul>
-                                    <li><a href="#" class="list-group-item list-group-item-action">12 A IPA</a></li>
-                                    <li><a href="#" class="list-group-item list-group-item-action">11 A IPA</a></li>
-                                    <li><a href="#" class="list-group-item list-group-item-action">12 B IPS</a></li>
+                                    <?php foreach($navbar as $nvbr) : ?>
+                                    <li><a href="kelaspage.php?kelas=<?=$nvbr["kelasid"]?>" class="list-group-item list-group-item-action"><?=$nvbr["kelas"]?> <?=$nvbr["jurusan"]?></a></li>
+                                    <?php endforeach ; ?>
                                     </ul>           
                                 </div>
                                 </div>
