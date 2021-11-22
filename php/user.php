@@ -117,7 +117,7 @@ $i = $dataAwal + 1;
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                            Data akan dihapus dan tidak dapat dikembalikan, Yakin ingin menghapus data ?
+                            Data dan semua yang bersangkutan akan dihapus dan tidak dapat dikembalikan, Yakin ingin menghapus data ?
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>

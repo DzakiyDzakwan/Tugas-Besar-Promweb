@@ -33,7 +33,11 @@ if(isset($_SESSION["admin"])) {
             <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fas fa-bars"></i></button>
     
             <!-- Logo -->
-            <a class="navbar-brand" href="#">School.Id</a>
+            <?php if(isset($_SESSION["admin"])) : ?>
+                <a class="navbar-brand" href="admin.php">School.Id</a>
+            <?php else : ?>
+                <a class="navbar-brand" href="siswa.php">School.Id</a>
+            <?php endif ; ?>
     
          </div>
     

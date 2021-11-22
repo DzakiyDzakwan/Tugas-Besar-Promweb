@@ -99,7 +99,7 @@ if(isset($_POST["find"])) {
                      <?php if(isset($_SESSION["admin"])) : ?>
 
                         <td>
-                          <a href="editguru.php?id=<?=$kls["id"]?>" class="btn btn-success">Edit</a>
+                          <a href="editclass.php?id=<?=$kls["id"]?>" class="btn btn-success">Edit</a>
                           <!-- <a href="deleteguru.php?id=<?=$kls["id"]?>" class="btn btn-danger">Delete</a> -->
 
                           <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?=$kls["id"]?>">

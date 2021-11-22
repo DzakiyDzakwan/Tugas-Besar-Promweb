@@ -350,6 +350,48 @@ function editMapel($data) {
 
 }
 
+function editClass($data) {
+
+    global $connection;
+
+    $id = $data["id"];
+    $nama = htmlspecialchars($data["nama"]);
+    $wali = $data["walikelas"];
+    $jurusan = $data["jurusan"];
+
+    if (empty($nama)) {
+        return false ;
+    }
+
+    if (empty($wali)) {
+        $query = "UPDATE kelas SET nama_kelas = '$nama', jurusan = '$jurusan' WHERE id = $id" ; 
+    } else {
+
+        //check guru sudah menjadi wali atau belum
+        $walicheck = mysqli_query($connection, "SELECT * FROM kelas WHERE wali_kelas = $wali");
+
+        if(mysqli_num_rows($walicheck) > 0 ) {
+            return false;
+        } else {
+            $query = "UPDATE kelas SET nama_kelas = '$nama', wali_kelas = '$wali', jurusan = '$jurusan' WHERE id = $id" ; 
+        }
+
+    }   
+
+    //check nama sudaa tersedia atau belum
+
+    $check = mysqli_query($connection, "SELECT * FROM mapel WHERE nama_mapel = '$nama'");
+
+    if (mysqli_num_rows($check) === 1) {
+        return false ;
+    }
+
+    mysqli_query($connection, $query );
+
+    return mysqli_affected_rows($connection);
+
+}
+
 
 
 ?>

@@ -111,7 +111,7 @@ if(isset($_POST["find"])) {
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-                        <a href="deleteguru.php?id=<?=$mpl["id"]?>" class="btn btn-outline-danger">Delete</a>
+                        <a href="deletemapel.php?id=<?=$mpl["id"]?>" class="btn btn-outline-danger">Delete</a>
                       </div>
                     </div>
                   </div>
