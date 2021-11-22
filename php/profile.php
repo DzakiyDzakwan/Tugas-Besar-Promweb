@@ -27,14 +27,6 @@ if(isset($_SESSION["member"])) {
     }
 }
 
-if(isset($_POST["updateuser"])) {
-
-    $id = $_POST["id"];
-    $uname = $_POST["username"];
-    $email = $_POST["email"];
-
-}
-
 ?>
 
 

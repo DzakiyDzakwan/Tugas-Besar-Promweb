@@ -26,7 +26,7 @@ if (isset($_GET["page"])) {
 $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
 
 //SHOW
-$kelas = show ("SELECT * FROM kelas LIMIT $dataAwal, $dataPerhalaman") ;
+$kelas = show ("SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id LIMIT $dataAwal, $dataPerhalaman") ;
 $i = $dataAwal + 1;
 
 //Search/Filter
@@ -94,7 +94,7 @@ if(isset($_POST["find"])) {
                     <td class="table-body"><?=$i?></td>
                     <td class="table-body"><?= $kls["nama_kelas"] ?></td>
                     <td class="table-body"><?= $kls["jurusan"]?></td>
-                    <td class="table-body"><?= $kls["wali_kelas"]?></td>
+                    <td class="table-body"><?= $kls["nama_guru"]?></td>
                     
                      <?php if(isset($_SESSION["admin"])) : ?>
 
@@ -119,7 +119,7 @@ if(isset($_POST["find"])) {
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-                                  <a href="deleteguru.php?id=<?=$kls["id"]?>" class="btn btn-outline-danger">Delete</a>
+                                  <a href="deleteclass.php?id=<?=$kls["id"]?>" class="btn btn-outline-danger">Delete</a>
                                 </div>
                               </div>
                             </div>

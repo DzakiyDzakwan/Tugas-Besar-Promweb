@@ -31,9 +31,8 @@
     font-weight: bolder;
 }
 
-.navbar .dropdown-menu {
-    text-align: center !important;
-    font-size: 14px;
-    left: -30px;
+.navbar .login-register .dropdown-menu {
+    left: -10px;
+    font-family: 'Roboto Condensed';
 }
 
