@@ -62,7 +62,7 @@ if(isset($_SESSION["admin"])) {
                 </a>
                 <ul class="dropdown-menu border" aria-labelledby="navbarDropdown">
                     <?php if(isset($_SESSION["member"])) : ?>
-                    <li><a class="dropdown-item text-primary" href="#">Profile <i class="ms-2 fas fa-user"></i></a></li>
+                    <li><a class="dropdown-item text-primary" href="profile.php">Profile <i class="ms-2 fas fa-user"></i></a></li>
                     <?php endif ; ?>
                     <li><a class="dropdown-item text-success" href="editprofil.php">Edit Profile <i class="ms-2 fas fa-user-cog"></i></a></li> 
                     <li><a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">Logout<i class="ms-2 fas fa-power-off"></i> </a></li>

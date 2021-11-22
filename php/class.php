@@ -11,7 +11,7 @@ if(!isset($_SESSION["login"])) {
 }
 
 //pagination
-$totalData = count(show("SELECT kelas.id as id, kelas.nama_kelas as kelas, kelas.jurusan as jurusan, kelas.wali_kelas as wali FROM kelas")) ; 
+$totalData = count(show("SELECT * FROM kelas" )) ; 
 
 $dataPerhalaman = 5;
 
@@ -26,7 +26,7 @@ if (isset($_GET["page"])) {
 $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
 
 //SHOW
-$kelas = show ("SELECT kelas.id as id , kelas.nama_kelas as kelas, kelas.jurusan as jurusan, guru.nama_guru as wali FROM kelas JOIN guru on kelas.wali_kelas = guru.id LIMIT $dataAwal, $dataPerhalaman ") ;
+$kelas = show ("SELECT * FROM kelas LIMIT $dataAwal, $dataPerhalaman") ;
 $i = $dataAwal + 1;
 
 //Search/Filter
@@ -92,9 +92,9 @@ if(isset($_POST["find"])) {
             <?php foreach($kelas as $kls) : ?>
                 <tr class="tbody">
                     <td class="table-body"><?=$i?></td>
-                    <td class="table-body"><?php echo $kls["kelas"] ?></td>
+                    <td class="table-body"><?= $kls["nama_kelas"] ?></td>
                     <td class="table-body"><?= $kls["jurusan"]?></td>
-                    <td class="table-body"><?=$kls["wali"]?></td>
+                    <td class="table-body"><?= $kls["wali_kelas"]?></td>
                     
                      <?php if(isset($_SESSION["admin"])) : ?>
 
