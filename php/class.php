@@ -65,13 +65,13 @@ if(isset($_POST["find"])) {
         </div>
         
        <!--  Searchbar -->
-        <form class="d-flex search my-3 mx-auto">
-          <input class="form-control me-2" type="search" placeholder="Search Kelas" aria-label="Search" name="search" autocomplete="off">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-          <select class="btn ms-3 btn-outline-dark" name="" id="">
+        <form class="d-flex search my-3 mx-auto"  method="POST">
+          <input class="form-control me-2" type="search" placeholder="Search Kelas" aria-label="Search" name="keyword" autocomplete="off">
+          <button class="btn btn-outline-success" name="find" type="submit">Search</button>
+          <select class="btn ms-3 btn-outline-dark" name="filter" id="">
             <option value="">Jurusan</option>
-            <option value="">IPA</option>
-            <option value="">IPS</option>
+            <option value="IPA">IPA</option>
+            <option value="IPS">IPS</option>
           </select>
         </form>
 

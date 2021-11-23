@@ -234,11 +234,39 @@ function cariMapel($data) {
 }
 
 function cariKelas($data) {
+    $keyword = $data["keyword"];
+    $filter = $data["filter"];
+        
+    if(empty($keyword)) {
+        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id WHERE jurusan LIKE '%$filter%'" ;
+    } elseif(empty($filter)) {
+        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id  WHERE nama_kelas LIKE '%$keyword%'";
+    } else {
+        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id  WHERE jurusan LIKE '%$keyword%' AND status LIKE '%$filter%'";
+    }
+
+    //return var_dump($filter);
+
+    return show($search);
 
 }
 
 function cariUSer($data) {
-    
+    $keyword = $data["keyword"];
+    $filter = $data["filter"];
+
+        
+    if(empty($keyword)) {
+        $search = "SELECT * from user  WHERE status LIKE '%$filter%'" ;
+    } elseif(empty($filter)) {
+        $search = "SELECT * from user  WHERE username LIKE '%$keyword%'";
+    } else {
+        $search = "SELECT * from user WHERE status LIKE '%$keyword%' AND status LIKE '%$filter%'";
+    }
+
+    //return var_dump($filter);
+
+    return show($search);
 }
 
 /* Edit */
