@@ -18,7 +18,7 @@ if(isset($_SESSION["admin"])) {
 
             //Navbar Mapel Siswa
             $navbarID = $data["kelas_id"];
-            $navbar= show("SELECT mapel.* FROM siswa JOIN mapel_kelas ON mapel_kelas.kelas = siswa.kelas_id JOIN guru ON guru.id = mapel_kelas.guru JOIN mapel ON mapel.id = guru.mapel_id WHERE siswa.user_id = $id");
+            $navbar= show("SELECT mapel.* FROM siswa JOIN mapel_kelas ON mapel_kelas.kelas = siswa.kelas_id JOIN guru ON guru.id = mapel_kelas.guru JOIN mapel ON mapel.id = guru.mapel_id WHERE siswa.user_id = $id ORDER BY nama_mapel ASC");
 
             //CARA PANJANG
 
@@ -58,7 +58,7 @@ if(isset($_SESSION["admin"])) {
             <?php if(isset($_SESSION["admin"])) : ?>
                 <a class="navbar-brand" href="admin.php">School.Id</a>
             <?php else : ?>
-                <a class="navbar-brand" href="siswa.php">School.Id</a>
+                <a class="navbar-brand" href="dashboard.php">School.Id</a>
             <?php endif ; ?>
     
          </div>
@@ -129,21 +129,31 @@ if(isset($_SESSION["admin"])) {
                 <?php if(isset($_SESSION["admin"])) : ?>
                 
                     <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        <i class="me-2 fas fa-user-shield"></i>Admin 
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                            <div class="list-group">
-                                <a href="admin.php" class="list-group-item list-group-item-action">Dashboard <i class="ms-2 fas fa-tachometer-alt"></i></a>
-                                <a href="createmapel.php" class="list-group-item list-group-item-action">Add Mata Pelajaran <i class="ms-2 fas fa-plus"></i></a>
-                                <a href="createclass.php" class="list-group-item list-group-item-action">Add Kelas <i class="ms-2 fas fa-plus"></i></a>
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            <i class="me-2 fas fa-user-shield"></i>Admin 
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <div class="list-group">
+                                    <a href="admin.php" class="list-group-item list-group-item-action">Dashboard <i class="ms-2 fas fa-tachometer-alt"></i></a>
+                                    <a href="createmapel.php" class="list-group-item list-group-item-action">Add Mata Pelajaran <i class="ms-2 fas fa-plus"></i></a>
+                                    <a href="createclass.php" class="list-group-item list-group-item-action">Add Kelas <i class="ms-2 fas fa-plus"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                
+                <?php else : ?>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <a href="dashboard.php" class="accordion-button collapsed" type="button">
+                                <i class="me-2 fas fa-tachometer-alt"></i>Dashboard
+                            </a>
+                        </h2>
+                    </div>
 
                 <?php endif ; ?>
 
@@ -219,26 +229,27 @@ if(isset($_SESSION["admin"])) {
                 
                 <?php if(isset($_SESSION["member"])) : ?>
 
-                    
+                    <?php if($_SESSION["member"] === "siswa") : ?>
 
-                    <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseOne">
-                        <i class="me-2 fas fa-tasks"></i>Tugas
-                        </button>
-                    </h2>
-                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                            <div class="list-group">
-                                <ul>
-                                <li><a href="#" class="list-group-item list-group-item-action">Membuat Diagram Sesuai dengan kaidah nya masing masing</a></li>
-                                <li><a href="#" class="list-group-item list-group-item-action">Website Sederhana</a></li>
-                                <li><a href="#" class="list-group-item list-group-item-action">blablabla</a></li>
-                                </ul>           
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <i class="me-2 fas fa-tasks"></i>Tugas
+                                </button>
+                            </h2>
+                            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="list-group">
+                                        <ul>
+                                        <li><a href="#" class="list-group-item list-group-item-action">Membuat Diagram Sesuai dengan kaidah nya masing masing</a></li>
+                                        <li><a href="#" class="list-group-item list-group-item-action">Website Sederhana</a></li>
+                                        <li><a href="#" class="list-group-item list-group-item-action">blablabla</a></li>
+                                        </ul>           
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    <?php endif ; ?>
     
 
                 <?php endif ; ?>  

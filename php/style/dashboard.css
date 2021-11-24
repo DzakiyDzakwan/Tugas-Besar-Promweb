@@ -21,3 +21,8 @@
 .card .card-text {
     font-family: 'Roboto Condensed';
 }
+
+.filter-class h3 {
+    font-family: 'Merriweather';
+    font-weight: bolder;
+}

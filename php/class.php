@@ -84,8 +84,14 @@ if(isset($_POST["find"])) {
               <td class="table-header">Jurusan</td>
               <td class="table-header">Wali</td>
               <?php if(isset($_SESSION["admin"])) : ?>
-                    <td class="table-header">Action</td>
+                  <td class="table-header">Action</td>
+              <?php elseif(isset($_SESSION["member"])) : ?>
+
+                <?php if($_SESSION["member"] === "guru") : ?>
+                  <td class="table-header">Action</td>
                 <?php endif ; ?>
+
+              <?php endif ; ?>
               
             </tr>
   
@@ -96,38 +102,66 @@ if(isset($_POST["find"])) {
                     <td class="table-body"><?= $kls["jurusan"]?></td>
                     <td class="table-body"><?= $kls["nama_guru"]?></td>
                     
-                     <?php if(isset($_SESSION["admin"])) : ?>
+                      <?php if(isset($_SESSION["admin"])) : ?>
 
-                        <td>
-                          <a href="editclass.php?id=<?=$kls["id"]?>" class="btn btn-success">Edit</a>
-                          <!-- <a href="deleteguru.php?id=<?=$kls["id"]?>" class="btn btn-danger">Delete</a> -->
+                          <td>
+                            <a href="editclass.php?id=<?=$kls["id"]?>" class="btn btn-success">Edit</a>
+                            <!-- <a href="deleteguru.php?id=<?=$kls["id"]?>" class="btn btn-danger">Delete</a> -->
 
-                          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?=$kls["id"]?>">
-                            Delete
-                          </button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete<?=$kls["id"]?>">
+                              Delete
+                            </button>
 
-                          <!-- Modal -->
-                          <div class="modal fade" id="delete<?=$kls["id"]?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  Data dan semua yang bersangkutan akan dihapus dan tidak dapat dikembalikan, Yakin ingin menghapus data ?
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-                                  <a href="deleteclass.php?id=<?=$kls["id"]?>" class="btn btn-outline-danger">Delete</a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="delete<?=$kls["id"]?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Data dan semua yang bersangkutan akan dihapus dan tidak dapat dikembalikan, Yakin ingin menghapus data ?
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+                                    <a href="deleteclass.php?id=<?=$kls["id"]?>" class="btn btn-outline-danger">Delete</a>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
 
-                        </td>
+                          </td>
 
-                    <?php endif; ?>
+                      <?php elseif(isset($_SESSION["member"])) : ?>
+
+                        <?php if($_SESSION["member"] === "guru") : ?>
+
+                          <?php
+                          
+                          $kelasid= $kls["id"];
+                          $checkenrolledclass = mysqli_query($connection, "SELECT * FROM mapel_kelas WHERE kelas = $kelasid AND guru = $navbarID");
+
+                          ?>
+                          
+                          <?php if(mysqli_num_rows($checkenrolledclass) > 0) : ?>
+
+                            <td>
+                              <a href="editclass.php?id=<?=$kls["id"]?>&guru=<?=$navbarID?>" class="btn btn-primary disabled">Enrolled</a>
+                              
+                            </td>
+                          
+                          <?php else : ?>
+                          
+                            <td>
+                              <a href="enroll.php?id=<?=$kls["id"]?>&guru=<?=$navbarID?>" class="btn btn-outline-primary">Enroll</a>
+                            </td>
+
+                          <?php endif ; ?>
+
+                        <?php endif ; ?>
+
+                      <?php endif; ?>
                 </tr>
             <?php $i++ ?>   
             <?php endforeach ; ?>

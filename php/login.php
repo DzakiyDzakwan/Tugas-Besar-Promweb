@@ -46,13 +46,13 @@ if (isset($_SESSION["admin"])) {
 if (isset($_SESSION["member"])) {
     if ($_SESSION["member"] === "siswa" ) {
         if (isset($_SESSION["login"])) {
-            header("Location: siswa.php");
+            header("Location: dashboard.php");
         } else {
             header("Location: welcome.php");
         }
      } else {
         if (isset($_SESSION["login"])) {
-            header("Location: guru.php");
+            header("Location: dashboard.php");
         } else {
             header("Location: welcome.php");
         }
@@ -114,7 +114,7 @@ if (isset($_POST['login'])){
                     if(isset($_POST["remember"])) {
                         setcookie('login','true', time()+ 3600);
                     }
-                    header("Location: siswa.php");
+                    header("Location: dashboard.php");
                 } else {
                     header('Location: welcome.php');
                 }
@@ -135,7 +135,7 @@ if (isset($_POST['login'])){
                     if(isset($_POST["remember"])) {
                         setcookie('login','true', time()+ 3600);
                     }
-                    header("Location: guru.php");
+                    header("Location: dashboard.php");
                 } else {
                     header("Location: welcome.php");
                 }
