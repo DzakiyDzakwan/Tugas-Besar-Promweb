@@ -82,7 +82,7 @@ if (isset($_POST['login'])){
            
             //set session userID
             if(isset($_POST["remember"])) {
-                setcookie('userID',$id, time() + 60 );
+                setcookie('userID',$id, time() + 3600 );
             }
 
            
@@ -93,8 +93,8 @@ if (isset($_POST['login'])){
 
                 //setcookie admin
                 if(isset($_POST["remember"])) {
-                    setcookie('login','true',time()+60);
-                    setcookie('admin','true',time()+60);
+                    setcookie('login','true',time()+ 3600);
+                    setcookie('admin','true',time()+ 3600);
                 }
 
                 header('Location: admin.php');
@@ -112,7 +112,7 @@ if (isset($_POST['login'])){
                 if (mysqli_fetch_assoc($profileCheckSiswa)) {
                     $_SESSION["login"] = TRUE;
                     if(isset($_POST["remember"])) {
-                        setcookie('login','true', time()+60);
+                        setcookie('login','true', time()+ 3600);
                     }
                     header("Location: siswa.php");
                 } else {
@@ -133,7 +133,7 @@ if (isset($_POST['login'])){
                 if (mysqli_fetch_assoc($profileCheckGuru)) {
                     $_SESSION["login"] = TRUE;
                     if(isset($_POST["remember"])) {
-                        setcookie('login','true', time()+60);
+                        setcookie('login','true', time()+ 3600);
                     }
                     header("Location: guru.php");
                 } else {

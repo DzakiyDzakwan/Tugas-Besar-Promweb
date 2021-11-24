@@ -40,7 +40,7 @@ if ($_SESSION["member"]==="siswa") {
         if (addSiswa($_POST) > 0) {
             $_SESSION["login"] = TRUE;
             if($_COOKIE["member"]=='siswa') {
-                setcookie('login','true',time()+60);
+                setcookie('login','true',time() + 3600);
             }
             header("Location: siswa.php");
         } else {
@@ -54,7 +54,7 @@ if ($_SESSION["member"]==="siswa") {
         if (addGuru($_POST) > 0) {
             $_SESSION["login"] = TRUE;
             if($_COOKIE["member"]=='guru') {
-                setcookie('login','true',time()+60);
+                setcookie('login','true',time() + 3600);
             }
             header("Location: guru.php");
         } else {
