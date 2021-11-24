@@ -17,8 +17,19 @@ if(isset($_SESSION["admin"])) {
             $data = mysqli_fetch_assoc($namaSiswa);
 
             //Navbar Mapel Siswa
-            $navbarID = $data["guru_id"];
-            $navbar = show("SELECT * FROM mapel_kelas JOIN guru ON mapel_kelas.guru = guru.id WHERE kelas = $navbarID");
+            $navbarID = $data["kelas_id"];
+            $navbar= show("SELECT mapel.* FROM siswa JOIN mapel_kelas ON mapel_kelas.kelas = siswa.kelas_id JOIN guru ON guru.id = mapel_kelas.guru JOIN mapel ON mapel.id = guru.mapel_id WHERE siswa.user_id = $id");
+
+            //CARA PANJANG
+
+           /*  $mapelID = show("SELECT * FROM mapel_kelas JOIN guru ON mapel_kelas.guru = guru.id WHERE kelas = $navbarID");
+
+            for($t = 0; $t < count($mapelID); $t++) {
+                $mapel = $mapelID[$t]["mapel_id"];
+                $navbar[$t] = show("SELECT * FROM mapel WHERE id = $mapel ");
+              }
+ */
+            
 
     } else {
 
@@ -33,9 +44,14 @@ if(isset($_SESSION["admin"])) {
     }
 }
 
-//$navbarItem = mysqli_fetch_assoc($navbar) ;
 
-//var_dump($navbar);
+foreach($navbar as $nvbr) {
+    var_dump($nvbr["id"]);
+}
+
+
+
+
 
 ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid border sticky-top">
@@ -175,9 +191,9 @@ if(isset($_SESSION["admin"])) {
                                 <div class="accordion-body">
                                 <div class="list-group">
                                     <ul>
-                                    <li><a href="#" class="list-group-item list-group-item-action">Matematika</a></li>
-                                    <li><a href="#" class="list-group-item list-group-item-action">B.Indonesia</a></li>
-                                    <li><a href="#" class="list-group-item list-group-item-action">Pancasila</a></li>
+                                    <?php foreach($navbar as $nvbr) : ?>
+                                    <li><a href="kelaspage.php?kelas=<?=$nvbr["id"]?>" class="list-group-item list-group-item-action"><?=$nvbr["nama_mapel"]?></a></li>
+                                    <?php endforeach ; ?>
                                     </ul>           
                                 </div>
                                 </div>
