@@ -250,7 +250,7 @@ if(isset($_POST["updateuser"])) {
                                     <label for="password">Old Password</label>
                                 </td>
                                 <td class="px-3 py-2">
-                                    <input class="form-control" type="password" name="passwordold" id="password">
+                                    <input class="form-control" type="password" name="passwordold" id="password" >
                                 </td>
                             </tr>
 

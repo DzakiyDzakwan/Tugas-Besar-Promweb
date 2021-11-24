@@ -45,14 +45,6 @@ if(isset($_SESSION["admin"])) {
 }
 
 
-foreach($navbar as $nvbr) {
-    var_dump($nvbr["id"]);
-}
-
-
-
-
-
 ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid border sticky-top">
         <div class="container navbar-head">

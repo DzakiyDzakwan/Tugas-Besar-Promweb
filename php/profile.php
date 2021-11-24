@@ -46,145 +46,141 @@ if(isset($_SESSION["member"])) {
 
     <?php include'navbar.php' ?> 
    
-     <!-- Isi Konten -->
-    <?php if(isset($_SESSION["member"])) : ?>
+        <div class="container form-container my-5 py-3 border">
+            <div class="row">
 
-    <!-- FOR MURID -->
-    <?php if($_SESSION["member"] === "siswa") :?>
+                <!-- Isi Konten -->
+                    <?php if(isset($_SESSION["member"])) : ?>
 
-     <div class="container form-container my-5 border">
-         <div class="row">
+                        <!-- FOR MURID -->
+                        <?php if($_SESSION["member"] === "siswa") :?>
+                        <!-- Biodata -->
+                        <div class="col-lg-12 py-2 px-4 biodata">
 
-            <!-- Biodata -->
-            <div class="col-lg-12 py-2 px-4 biodata">
+                            <div class="title-form my-3 mx-auto">
+                                <h4>Biodata</h4>
+                            </div>
 
-                <div class="title-form my-3 mx-auto">
-                    <h4>Biodata</h4>
-                </div>
+                            <table class="mx-auto table" width="60%">
+                            
+                                <tr>
+                                    <td class="px-3 py-3 data-title">Username</td>
+                                    <td class="px-2">: </td>
+                                    <td class="py-3 px-3 px-4 data"> <?=$user["username"]?> </td>
+                        
+                                    <td class="px-4 py-3 data-title">Nama</td>
+                                    <td class="px-2">:</td>
+                                    <td class="py-3 px-3 data"> <?=$profil["nama_siswa"]?> </td>
+                                </tr>
 
-                <table class="mx-auto" width="60%">
+                                <tr>
+                                    <td class="px-3 py-3 data-title">NIS</td>
+                                    <td class="px-2">:</td>
+                                    <td class="py-3 px-4 data"> <?=$profil["NIS"]?> </td>
+
+                                    <td class="px-4 py-3 data-title">Email</td>
+                                    <td class="px-2">:</td>
+                                    <td class="py-3 px-3 data"> <?=$user["email"]?> </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="px-3 py-3 data-title">Kelas</td>
+                                    <td class="px-2">:</td>
+                                    <td class="py-3 px-4 data"> <?=$profil["nama_kelas"]?> </td>
+
+                                    <td class="px-4 py-3 data-title">Jurusan</td>
+                                    <td class="px-2">:</td>
+                                    <td class="py-3 px-3 data"> <?=$profil["jurusan"]?> </td>
+                                </tr>
+
+                            </table>
+                        </div>
+
+                        <!-- Table-Nilai -->
+                        <div class="col-lg-12 px-3 py-2 nilai">
+
+                            <div class="title-form-2 mt-3 mx-auto">
+                                <h4>Nilai Siswa</h4>
+                            </div>
+
+                            <div class="table-nilai px-3 my-4">
+                                <h5 class="my-3">Matematika</h5>
+
+                                <table width="100%" class="mx-auto table-bordered">
+
+                                    <tr>
+                                        <th width="20%" class="px-3">Nilai 1</th>
+                                        <th width="20%" class="px-3">Nilai 2</th>
+                                        <th width="20%" class="px-3">Nilai 3</th>
+                                        <th width="20%" class="px-3">Nilai 4</th>
+                                        <th width="20%" class="px-3">Nilai 5</th>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%" class="p-3">100</td>
+                                        <td width="20%" class="p-3">80</td>
+                                        <td width="20%" class="p-3">76</td>
+                                        <td width="20%" class="p-3">80</td>
+                                        <td width="20%" class="p-3">90</td>
+                                    </tr>
                 
-                    <tr>
-                        <td class="px-3 py-3 data-title">Username</td>
-                        <td class="px-2">: </td>
-                        <td class="py-3 px-3 px-4 data"> <?=$user["username"]?> </td>
+                                </table>
+
+                            </div>
+                            
+                        </div>
+
+                    <!--- FOR GURU -->
+                    <?php else: ?>
+
+                    <!-- Biodata -->
+                    <div class="col-lg-12 py-2 px-4 biodata">
+
+                        <div class="title-form my-3 mx-auto">
+                            <h4>Biodata</h4>
+                        </div>
+
+                        <table class="mx-auto table" width="60%">                    
             
-                        <td class="px-4 py-3 data-title">Nama</td>
-                        <td class="px-2">:</td>
-                        <td class="py-3 px-3 data"> <?=$profil["nama_siswa"]?> </td>
-                    </tr>
+                            <tr>
+                            <td class="px-3 py-3 data-title">Username</td>
+                                <td class="px-2">: </td>
+                                <td class="py-3 px-3 px-4 data"> <?=$user["username"]?> </td>
+                    
+                                <td class="px-4 py-3 data-title">Nama</td>
+                                <td class="px-2">:</td>
+                                <td class="py-3 px-3 data"> <?=$profil["nama_guru"]?> </td>
+                            </tr>
 
-                    <tr>
-                        <td class="px-3 py-3 data-title">NIS</td>
-                        <td class="px-2">:</td>
-                        <td class="py-3 px-4 data"> <?=$profil["NIS"]?> </td>
+                            <tr>
+                                <td class="px-3 py-3 data-title">NIG</td>
+                                <td class="px-2">:</td>
+                                <td class="py-3 px-4 data"> <?=$profil["NIG"]?> </td>
 
-                        <td class="px-4 py-3 data-title">Email</td>
-                        <td class="px-2">:</td>
-                        <td class="py-3 px-3 data"> <?=$user["email"]?> </td>
-                    </tr>
+                                <td class="px-4 py-3 data-title">Email</td>
+                                <td class="px-2">:</td>
+                                <td class="py-3 px-3 data"> <?=$user["email"]?> </td>
+                            </tr>
 
-                    <tr>
-                        <td class="px-3 py-3 data-title">Kelas</td>
-                        <td class="px-2">:</td>
-                        <td class="py-3 px-4 data"> <?=$profil["nama_kelas"]?> </td>
+                            <tr>
+                                <td class="px-3 py-3 data-title">Mapel</td>
+                                <td class="px-2">:</td>
+                                <td class="py-3 px-4 data"> <?=$profil["nama_mapel"]?> </td>
+                            </tr>
 
-                        <td class="px-4 py-3 data-title">Jurusan</td>
-                        <td class="px-2">:</td>
-                        <td class="py-3 px-3 data"> <?=$profil["jurusan"]?> </td>
-                    </tr>
 
-                </table>
-            </div>
+                        <?php endif ; ?>
+                    <?php endif ; ?>
 
-            <!-- Table-Nilai -->
-            <div class="col-lg-12 px-3 py-2 nilai">
-
-                <div class="title-form-2 mt-3 mx-auto">
-                    <h4>Nilai Siswa</h4>
-                </div>
-
-                <div class="table-nilai px-3 my-4">
-                    <h5 class="my-3">Matematika</h5>
-
-                    <table width="100%" class="mx-auto">
-
-                        <tr>
-                            <th width="20%" class="px-3">Nilai 1</th>
-                            <th width="20%" class="px-3">Nilai 2</th>
-                            <th width="20%" class="px-3">Nilai 3</th>
-                            <th width="20%" class="px-3">Nilai 4</th>
-                            <th width="20%" class="px-3">Nilai 5</th>
-                        </tr>
-                        <tr>
-                            <td width="20%" class="p-3">100</td>
-                            <td width="20%" class="p-3">80</td>
-                            <td width="20%" class="p-3">76</td>
-                            <td width="20%" class="p-3">80</td>
-                            <td width="20%" class="p-3">90</td>
-                        </tr>
-    
                     </table>
-
-                </div>
-                
-            </div>
-
-        <!--- FOR GURU -->
-            <?php else: ?>
-
-    <div class="container form-container my-5 border">
-        <div class="row">
-
-            <!-- Biodata -->
-            <div class="col-lg-12 py-2 px-4 biodata">
-
-                <div class="title-form my-3 mx-auto">
-                    <h4>Biodata</h4>
                 </div>
 
-                <table class="mx-auto" width="60%">                    
-    
-                    <tr>
-                    <td class="px-3 py-3 data-title">Username</td>
-                        <td class="px-2">: </td>
-                        <td class="py-3 px-3 px-4 data"> <?=$user["username"]?> </td>
-            
-                        <td class="px-4 py-3 data-title">Nama</td>
-                        <td class="px-2">:</td>
-                        <td class="py-3 px-3 data"> <?=$profil["nama_guru"]?> </td>
-                    </tr>
+                <!---Print-->
+                <div class="print-button">
+                    <button class="btn btn-primary">Print<i class="fas fa-print mx-2"></i></button>
+                </div>
 
-                    <tr>
-                        <td class="px-3 py-3 data-title">NIG</td>
-                        <td class="px-2">:</td>
-                        <td class="py-3 px-4 data"> <?=$profil["NIG"]?> </td>
-
-                        <td class="px-4 py-3 data-title">Email</td>
-                        <td class="px-2">:</td>
-                        <td class="py-3 px-3 data"> <?=$user["email"]?> </td>
-                    </tr>
-
-                    <tr>
-                        <td class="px-3 py-3 data-title">Mapel</td>
-                        <td class="px-2">:</td>
-                        <td class="py-3 px-4 data"> <?=$profil["nama_mapel"]?> </td>
-                    </tr>
-
-
-                <?php endif ; ?>
-                <?php endif ; ?>
-
-                </table>
             </div>
-
-            <!---Print-->
-            <div class="print-button">
-                <button class="btn btn-primary">Print<i class="fas fa-print mx-2"></i></button>
-            </div>
-
-         </div>
-     </div>
+        </div>
   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/9c0c4e63c7.js" crossorigin="anonymous"></script>
