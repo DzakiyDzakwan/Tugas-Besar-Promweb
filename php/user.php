@@ -30,6 +30,12 @@ $user = show("SELECT * from user LIMIT $dataAwal, $dataPerhalaman");
 
 $i = $dataAwal + 1;
 
+//SEARCH
+
+if(isset($_POST["find"])) {
+  $user = cariUser($_POST);
+}
+
 
 ?>
 

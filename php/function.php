@@ -183,10 +183,6 @@ function cariSiswa($data) {
     
     $keyword = $data["keyword"];
     $filter = $data["filter"];
-
-    if(empty($keyword) && empty($filter)) {
-        return false;
-    } 
         
     if(empty($keyword)) {
         $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE kelas.jurusan LIKE '%$filter%' ORDER BY siswa.nama_siswa ASC" ;
@@ -261,7 +257,7 @@ function cariUSer($data) {
     } elseif(empty($filter)) {
         $search = "SELECT * from user  WHERE username LIKE '%$keyword%'";
     } else {
-        $search = "SELECT * from user WHERE status LIKE '%$keyword%' AND status LIKE '%$filter%'";
+        $search = "SELECT * from user WHERE username LIKE '%$keyword%' AND status LIKE '%$filter%'";
     }
 
     //return var_dump($filter);

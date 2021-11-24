@@ -17,8 +17,8 @@ if(isset($_SESSION["admin"])) {
             $data = mysqli_fetch_assoc($namaSiswa);
 
             //Navbar Mapel Siswa
-            $navbarID = $data["kelas_id"];
-            $navbar = show("SELECT * FROM mapel_kelas JOIN kelas ON mapel_kelas.kelas = kelas.id WHERE kelas = $navbarID");
+            $navbarID = $data["guru_id"];
+            $navbar = show("SELECT * FROM mapel_kelas JOIN guru ON mapel_kelas.guru = guru.id WHERE kelas = $navbarID");
 
     } else {
 
