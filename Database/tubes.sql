@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2021 at 12:07 AM
+-- Generation Time: Nov 25, 2021 at 03:13 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -40,8 +40,10 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id`, `nama_guru`, `NIG`, `mapel_id`, `user_id`) VALUES
-(1, 'Budi Budiman', '199012001', 1, 2),
-(2, 'Dian Azhari', '199102002', 2, 4);
+(5, 'Guru 1', '190123001', 1, 10),
+(6, 'Guru 2', '190121002', 3, 11),
+(7, 'Guru3', '190121003', 3, 12),
+(8, 'Guru 4', '190121004', 2, 13);
 
 -- --------------------------------------------------------
 
@@ -61,7 +63,10 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `nama_kelas`, `jurusan`, `wali_kelas`) VALUES
-(1, '12 A', 'IPA', 1);
+(2, '10 A', 'IPA', 5),
+(3, '11 A', 'IPA', 6),
+(4, '12 A', 'IPA', 7),
+(5, '12 B', 'IPS', 8);
 
 -- --------------------------------------------------------
 
@@ -80,9 +85,31 @@ CREATE TABLE `mapel` (
 --
 
 INSERT INTO `mapel` (`id`, `nama_mapel`, `Created_at`) VALUES
-(1, 'Matematika', '2021-11-13 02:28:45'),
+(1, 'Matematika Wajib', '2021-11-13 02:28:45'),
 (2, 'B. Indonesia', '2021-11-13 02:50:46'),
 (3, 'Matematika Peminatan', '2021-11-13 17:17:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mapel_kelas`
+--
+
+CREATE TABLE `mapel_kelas` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `kelas` int(10) UNSIGNED NOT NULL,
+  `guru` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mapel_kelas`
+--
+
+INSERT INTO `mapel_kelas` (`id`, `kelas`, `guru`) VALUES
+(1, 2, 6),
+(2, 2, 8),
+(3, 5, 6),
+(5, 4, 6);
 
 -- --------------------------------------------------------
 
@@ -103,7 +130,9 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `nama_siswa`, `NIS`, `kelas_id`, `user_id`) VALUES
-(1, 'Reyhan Nabawi', '211402001', 1, 3);
+(3, 'Siswa 4', '211121004', 2, 7),
+(4, 'Siswa 2', '211121002', 2, 8),
+(5, 'Siswa 3', '211121003', 5, 9);
 
 -- --------------------------------------------------------
 
@@ -126,9 +155,14 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `status`, `Created_at`) VALUES
 (1, 'admin', '$2y$10$YUgrqufmksozuj1VtDN1C.8DwEPPBOx3AMT5yFCeYCUsResux2qBq', 'admin@gmail.com', 'ADMIN', '2021-11-13 02:28:01'),
-(2, 'budiman7', '$2y$10$fM0b5lhEQXa0/AJwiW2BYeoB6XWf8fHK9zZQuowYBya1KIzGMKVni', 'budiman@gmail.com', 'GURU', '2021-11-13 16:25:14'),
-(3, 'rey001', '$2y$10$dNvS4lfd64WzOD9pwbyCtO3EmFCbr3MIoQPGhX9g7nZ4ZZmOVhXga', 'reyhan@gmail.com', 'SISWA', '2021-11-13 16:28:46'),
-(4, 'dianazhari', '$2y$10$7aOonbqPTzh6UpTsIWXLies83GtXAipogDvDEkowXNY/MCHj4O07m', 'dianazhari@gmail.com', 'GURU', '2021-11-13 17:15:30');
+(6, 'admin3', '$2y$10$7QGWGfFoBpnO/0kF79LQ3ulVtr0FKJPh77PKbN7RzumVlxnwsIW.e', 'admin3@gmail.com', 'ADMIN', '2021-11-18 02:41:54'),
+(7, 'siswa4', '$2y$10$9DeaZ/QWJA7OKNcpLvZ82.zLCIRk0Cb3vPeExoSq2ShHmOvpMQ09e', 'siswa4@gmail.com', 'SISWA', '2021-11-20 03:30:49'),
+(8, 'siswa2', '$2y$10$flZcNQKe0n0dN01V.tSHh.Y.4oHS9HNWwc219DO5y2jOmNaC37VG.', 'siswa2@gmail.com', 'SISWA', '2021-11-20 03:31:01'),
+(9, 'siswa3', '$2y$10$7j8uWayxjYTuOwsJDJpNAOwZ3zfn5XB534S4jnQ8mple0chX0J8u.', 'siswa3@gmail.com', 'SISWA', '2021-11-20 03:31:23'),
+(10, 'guru1', '$2y$10$ppGIBjiJknu.sDn.hHl66OCz9M/KmitNLt5nFYXXmPlJ4ijGbt2yi', 'guru1@gmail.com', 'GURU', '2021-11-20 03:31:40'),
+(11, 'guru2', '$2y$10$NK0X0ZL1eeikZTOGJPeNpeX2YeC6LKvbWXQ6nvHSH..kUg23zaXKe', 'guru2@gmail.com', 'GURU', '2021-11-20 03:31:55'),
+(12, 'guru3', '$2y$10$zdcUodI1eKn0JSDioMzrUuj2QcrPqAI4LMz1jZg25po0I7C2AUwaa', 'guru3@gmail.com', 'GURU', '2021-11-20 03:36:22'),
+(13, 'guru4', '$2y$10$U29xmEr.yfAf/kMwIFobzewtEX67/o/Yd2ZKs/7nX.hxGengTShWK', 'guru4@gmail.com', 'GURU', '2021-11-21 01:52:32');
 
 --
 -- Indexes for dumped tables
@@ -156,6 +190,14 @@ ALTER TABLE `mapel`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `mapel_kelas`
+--
+ALTER TABLE `mapel_kelas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_mapel_kelas` (`kelas`),
+  ADD KEY `fk_pengajar` (`guru`);
+
+--
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
@@ -179,31 +221,37 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `mapel_kelas`
+--
+ALTER TABLE `mapel_kelas`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
@@ -220,7 +268,14 @@ ALTER TABLE `guru`
 -- Constraints for table `kelas`
 --
 ALTER TABLE `kelas`
-  ADD CONSTRAINT `fk_wali` FOREIGN KEY (`wali_kelas`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_wali` FOREIGN KEY (`wali_kelas`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `mapel_kelas`
+--
+ALTER TABLE `mapel_kelas`
+  ADD CONSTRAINT `fk_mapel_kelas` FOREIGN KEY (`kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pengajar` FOREIGN KEY (`guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `siswa`
