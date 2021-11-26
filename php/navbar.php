@@ -44,7 +44,6 @@ if(isset($_SESSION["admin"])) {
     }
 }
 
-
 ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light container-fluid border sticky-top">
         <div class="container navbar-head">
@@ -149,7 +148,7 @@ if(isset($_SESSION["admin"])) {
 
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne">
-                            <a href="dashboard.php" class="accordion-button collapsed" type="button">
+                            <a href="dashboard.php" class="accordion-button collapsed" type="button" style="text-decoration:none;">
                                 <i class="me-2 fas fa-tachometer-alt"></i>Dashboard
                             </a>
                         </h2>
@@ -194,7 +193,18 @@ if(isset($_SESSION["admin"])) {
                                 <div class="list-group">
                                     <ul>
                                     <?php foreach($navbar as $nvbr) : ?>
-                                    <li><a href="kelaspage.php?kelas=<?=$nvbr["id"]?>" class="list-group-item list-group-item-action"><?=$nvbr["nama_mapel"]?></a></li>
+
+                                    <?php 
+                                        $idmapel = $nvbr["id"] ;
+                                        $namaGuru = show("SELECT nama_guru FROM guru WHERE mapel_id = $idmapel")[0];
+                                    ?>
+
+                                    <li>
+                                        <div class="list-group-item list-group-item-action">
+                                        <a href="kelaspage.php?kelas=<?=$nvbr["id"]?>" style="color:#000; text-decoration:none; font-family:'Merriweather'; font-weight:bolder;"><?=$nvbr["nama_mapel"]?></a>
+                                        <p><?=$namaGuru["nama_guru"]?></p>
+                                        </div>
+                                    </li>
                                     <?php endforeach ; ?>
                                     </ul>           
                                 </div>

@@ -103,29 +103,37 @@ if(isset($_SESSION["member"])) {
                                 <h4>Nilai Siswa</h4>
                             </div>
 
+                            <?php foreach($navbar as $mapel) : ?>
                             <div class="table-nilai px-3 my-4">
-                                <h5 class="my-3">Matematika</h5>
+                                <h5 class="mt-3 mb-0"><?=$mapel["nama_mapel"]?></h5>
+                                
+                                <?php 
+                                    $idmapel = $mapel["id"] ;
+                                    $namaGuru = show("SELECT nama_guru FROM guru WHERE mapel_id = $idmapel")[0];
+                                ?>
+
+                                <span style="font-family:'Roboto Consended';"><?=$namaGuru["nama_guru"]?></span>
 
                                 <table width="100%" class="mx-auto table-bordered">
 
                                     <tr>
-                                        <th width="20%" class="px-3">Nilai 1</th>
-                                        <th width="20%" class="px-3">Nilai 2</th>
-                                        <th width="20%" class="px-3">Nilai 3</th>
-                                        <th width="20%" class="px-3">Nilai 4</th>
-                                        <th width="20%" class="px-3">Nilai 5</th>
-                                    </tr>
+                                        <th class="px-3">Nilai 1</th>
+                                        <th class="px-3">Nilai 2</th>
+                                        <th class="px-3">Nilai 3</th>
+                                        <th class="px-3">Nilai 4</th>
+                                        <th class="px-3">Nilai 5</th>
                                     <tr>
-                                        <td width="20%" class="p-3">100</td>
-                                        <td width="20%" class="p-3">80</td>
-                                        <td width="20%" class="p-3">76</td>
-                                        <td width="20%" class="p-3">80</td>
-                                        <td width="20%" class="p-3">90</td>
+                                        <td class="p-3">100</td>
+                                        <td class="p-3">80</td>
+                                        <td class="p-3">76</td>
+                                        <td class="p-3">80</td>
+                                        <td class="p-3">90</td>
                                     </tr>
                 
                                 </table>
 
                             </div>
+                            <?php endforeach ; ?>
                             
                         </div>
 
@@ -176,7 +184,7 @@ if(isset($_SESSION["member"])) {
 
                 <!---Print-->
                 <div class="print-button">
-                    <button class="btn btn-primary">Print<i class="fas fa-print mx-2"></i></button>
+                    <button class="btn btn-success">Report<i class="fas fa-print mx-2"></i></button>
                 </div>
 
             </div>
