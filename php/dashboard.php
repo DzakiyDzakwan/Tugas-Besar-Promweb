@@ -6,6 +6,14 @@ require 'function.php';
 //Session
 session_start();
 
+if(!isset($_SESSION["login"])) {
+  header('Location: login.php');
+}
+
+if(isset($_SESSION["admin"])) {
+  header('Location: admin.php');
+}
+
 ?>
 
 <!DOCTYPE html>
