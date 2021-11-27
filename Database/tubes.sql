@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2021 at 03:13 PM
+-- Generation Time: Nov 27, 2021 at 04:46 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -44,6 +44,20 @@ INSERT INTO `guru` (`id`, `nama_guru`, `NIG`, `mapel_id`, `user_id`) VALUES
 (6, 'Guru 2', '190121002', 3, 11),
 (7, 'Guru3', '190121003', 3, 12),
 (8, 'Guru 4', '190121004', 2, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jawaban`
+--
+
+CREATE TABLE `jawaban` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `jawaban` varchar(200) NOT NULL,
+  `nilai` int(10) UNSIGNED DEFAULT 0,
+  `siswa` int(10) UNSIGNED NOT NULL,
+  `tugas` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -137,6 +151,20 @@ INSERT INTO `siswa` (`id`, `nama_siswa`, `NIS`, `kelas_id`, `user_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tugas`
+--
+
+CREATE TABLE `tugas` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama_tugas` varchar(200) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `guru` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -177,6 +205,14 @@ ALTER TABLE `guru`
   ADD KEY `fk_mapel_guru` (`mapel_id`);
 
 --
+-- Indexes for table `jawaban`
+--
+ALTER TABLE `jawaban`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_nilai_siswa` (`siswa`),
+  ADD KEY `fk_jawaban_tugas` (`tugas`);
+
+--
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -206,6 +242,13 @@ ALTER TABLE `siswa`
   ADD KEY `fk_user_siswa` (`user_id`);
 
 --
+-- Indexes for table `tugas`
+--
+ALTER TABLE `tugas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tugas_guru` (`guru`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -222,6 +265,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `guru`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `jawaban`
+--
+ALTER TABLE `jawaban`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -248,6 +297,12 @@ ALTER TABLE `siswa`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `tugas`
+--
+ALTER TABLE `tugas`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
@@ -263,6 +318,13 @@ ALTER TABLE `user`
 ALTER TABLE `guru`
   ADD CONSTRAINT `fk_mapel_guru` FOREIGN KEY (`mapel_id`) REFERENCES `mapel` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_user_guru` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `jawaban`
+--
+ALTER TABLE `jawaban`
+  ADD CONSTRAINT `fk_jawaban_tugas` FOREIGN KEY (`tugas`) REFERENCES `tugas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_nilai_siswa` FOREIGN KEY (`siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kelas`
@@ -283,6 +345,12 @@ ALTER TABLE `mapel_kelas`
 ALTER TABLE `siswa`
   ADD CONSTRAINT `fk_kelas` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_user_siswa` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tugas`
+--
+ALTER TABLE `tugas`
+  ADD CONSTRAINT `fk_tugas_guru` FOREIGN KEY (`guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
