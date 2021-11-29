@@ -3,6 +3,73 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+
+.container {
+    background-color: #f8f8f8;
+}
+
+/* ------------HEADER------------- */
+
+
+.task-title {
+    font-family: 'Merriweather';
+    font-weight: bolder;
+}
+
+.guru p {
+    font-family: "Merriweather";
+    font-size: 14px;
+}
+
+.d-flex {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box-sbmt {
+    width: 250px;
+    border-radius: 10px;
+
+    box-shadow: 1px 5px 32px -5px rgba(0,0,0,0.29);
+    -webkit-box-shadow: 1px 5px 32px -3px rgba(0,0,0,25%);
+    -moz-box-shadow: 1px 5px 32px -3px rgba(0,0,0,0.15);
+}
+
+.box-sbmt p {
+    width: 100%;
+    text-align: center;
+    font-family: 'Roboto Consended';
+    font-weight: bold;
+}
+
+.box-sbmt p span {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.box-sbmt button {
+    width: fit-content;
+    display: block;
+}
+
+.box-sbmt input[type="file"]{
+    width: 100%;
+}
+
+/*----------- KONTENT TUGAS--------- */
+
+.konten-tugas {
+    width: 80%;
+}
+
+.konten-tugas p {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+/* ----------KONTEN FOOTER---------- */
+
 .div1 {
     float: left;
 }
