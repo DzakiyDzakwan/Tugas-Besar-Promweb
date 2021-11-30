@@ -1,0 +1,60 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.left-column{
+    width: 40%;
+    float: left;
+}
+.right-column{
+    width: 60%;
+    float: left;
+}
+.random-circle1{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.random-word{
+    margin-left: 100px;
+    vertical-align: middle;
+}
+.random-circle2{
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.left-bar{
+    height: 30px;
+}
+.right-bar{
+    height: 65px;
+}
+.table2{
+    table-layout: fixed ;
+    width: 100%;
+}
+.tr1{
+    width: 33%;
+}
+.td1{
+    text-align: center;
+}
+.card{
+    background-color: lightgrey;
+}
+.box-tugas{
+    width: 5px;
+    background-color: white;
+    padding: 50px;
+    margin: 15px;
+}
+.border-end{
+    border-width: 5px !important;
+    border-color:  !important;
+}
