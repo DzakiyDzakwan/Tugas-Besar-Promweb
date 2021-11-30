@@ -45,3 +45,9 @@
 .body .d-flex {
     justify-content: flex-end;
 }
+
+/*------------ FOOTER ------------*/
+
+.footer {
+    justify-content: flex-end;
+}

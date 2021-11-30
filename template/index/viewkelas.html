@@ -204,6 +204,68 @@
 
             </div>
 
+            <div class="footer my-3 px-3 py-3 d-flex ">
+
+                <div class="create-tugas">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Create Tugas
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <form action="">
+                                    <div class="modal-body">
+                                    
+                                        
+                                        <table class="table table-borderless">
+
+                                            <tr>
+                                                <td>
+                                                    <label for="nama">Masukkan Nama tugas</label>
+                                                    <input class="form-control" type="text" name="nama" id="nama">
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <label for="description">Masukan Deskripsi Tugas</label>
+                                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <label for="description">Tanggal Deadline</label>
+                                                    <input class="form-control" type="date">
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                        
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Create</button>
+                                    </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
       </div>
