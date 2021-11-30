@@ -11,6 +11,10 @@
 
 /* ------------HEADER------------- */
 
+.breadcrumb-item a {
+    text-decoration: none;
+}
+
 
 .task-title {
     font-family: 'Merriweather';
