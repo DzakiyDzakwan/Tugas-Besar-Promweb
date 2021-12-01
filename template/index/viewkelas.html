@@ -214,14 +214,14 @@
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog" style="max-width: 700px;">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
 
-                                <form action="">
+                                <form action="" method="POST">
                                     <div class="modal-body">
                                     
                                         
@@ -229,22 +229,22 @@
 
                                             <tr>
                                                 <td>
-                                                    <label for="nama">Masukkan Nama tugas</label>
-                                                    <input class="form-control" type="text" name="nama" id="nama">
+                                                    <label for="nama">Nama tugas</label>
+                                                    <input class="form-control" placeholder="Masukkan nama tugas" type="text" name="nama" id="nama">
                                                 </td>
                                             </tr>
 
                                             <tr>
                                                 <td>
-                                                    <label for="description">Masukan Deskripsi Tugas</label>
-                                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                                    <label for="description">Deskripsi Tugas</label>
+                                                    <textarea class="form-control" placeholder="Masukkan Deskripsi Tugas" id="description"></textarea>
                                                 </td>
                                             </tr>
 
                                             <tr>
                                                 <td>
-                                                    <label for="description">Tanggal Deadline</label>
-                                                    <input class="form-control" type="date">
+                                                    <label for="date">Tanggal Deadline</label>
+                                                    <input class="form-control" type="date" id="date">
                                                 </td>
                                             </tr>
 
@@ -272,5 +272,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/9c0c4e63c7.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+        .create(document.querySelector('#description'))
+        .catch(error => {
+            console.error(error);
+        })
+    </script>
 </body>
 </html>
