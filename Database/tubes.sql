@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2021 at 04:46 PM
+-- Generation Time: Dec 01, 2021 at 04:04 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -158,9 +158,18 @@ CREATE TABLE `tugas` (
   `id` int(10) UNSIGNED NOT NULL,
   `nama_tugas` varchar(200) NOT NULL,
   `deskripsi` text DEFAULT NULL,
+  `deadline` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `guru` int(10) UNSIGNED NOT NULL
+  `guru` int(10) UNSIGNED NOT NULL,
+  `kelas` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tugas`
+--
+
+INSERT INTO `tugas` (`id`, `nama_tugas`, `deskripsi`, `deadline`, `created_at`, `guru`, `kelas`) VALUES
+(1, 'E-Commerce', 'Buatlah Makalah dan PPT tentang E-Commerce', '2021-12-25', '2021-12-01 15:04:03', 6, 2);
 
 -- --------------------------------------------------------
 
@@ -246,7 +255,8 @@ ALTER TABLE `siswa`
 --
 ALTER TABLE `tugas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tugas_guru` (`guru`);
+  ADD KEY `fk_tugas_guru` (`guru`),
+  ADD KEY `fk_tugas_kelas` (`kelas`);
 
 --
 -- Indexes for table `user`
@@ -300,7 +310,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -350,7 +360,8 @@ ALTER TABLE `siswa`
 -- Constraints for table `tugas`
 --
 ALTER TABLE `tugas`
-  ADD CONSTRAINT `fk_tugas_guru` FOREIGN KEY (`guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_tugas_guru` FOREIGN KEY (`guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_tugas_kelas` FOREIGN KEY (`kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
