@@ -10,6 +10,14 @@ if(!isset($_SESSION["login"])) {
     header('Location: login.php');
 }
 
+if (isset($_SESSION["member"])) {
+
+    if ($_SESSION["member"] !== "guru" ) {
+        header('Location: dashboard.php');
+    }
+
+}
+
 //idKelas
 $kelasID = $_GET["kelas"];
 
@@ -17,7 +25,7 @@ $kelasID = $_GET["kelas"];
 if(isset($_POST["create"])) {
 
     if(addTugas($_POST) > 0) {
-        header('Location: kelaspage.php?kelas=$kelasID');
+        header("Location: kelaspage.php?kelas=$kelasID");
     } else {
         echo "gagal bro";
     }
@@ -57,6 +65,15 @@ if(isset($_POST["create"])) {
 
     <?php include'navbar.php'?>
 
+    <?php 
+         /* TUgas */
+         $tugas = show("SELECT * FROM tugas WHERE guru = $navbarID AND kelas = $kelasID");
+         $siswa = show("SELECT * FROM siswa WHERE kelas_id = $kelasID");
+
+         $countSiswa = count($siswa);
+         $countTugas = count($tugas) ;
+    ?>
+
       <!-- Isi Konten -->
 
       <div class="container main-container my-4 px-4 py-2 border">
@@ -88,8 +105,8 @@ if(isset($_POST["create"])) {
                             <th>Jumlah Tugas</th>
                         </tr>
                         <tr>
-                            <td>54</td>
-                            <td>3</td>
+                            <td><a href="viewsiswa.php?kelas=<?=$kelasID?>" class="text-dark"><?=$countSiswa?></a></td>
+                            <td><?=$countTugas?></td>
                         </tr>
                     </table>
                 </div>
@@ -105,10 +122,10 @@ if(isset($_POST["create"])) {
 
                 </div> -->
 
-                     <!-- LIST TUGAS PHP -->
+                <!-- LIST TUGAS PHP -->
                 <?php 
 
-                $tugas = show("SELECT * FROM tugas WHERE guru = $navbarID AND kelas = $kelasID");
+                
 
                 ?>
                 
@@ -127,7 +144,7 @@ if(isset($_POST["create"])) {
                                     <p><?=$tgs["deskripsi"]?></p>
                                     <div class="d-flex">
                                         <a class="link-tugas mx-2" href="viewtugasguru.php?tugasID=<?=$tgs["id"]?>">See <i class="far fa-eye"></i></a> 
-                                        <a class="link-delete mx-2" href="deletetugas.php?tugasID=<?=$tgs["id"]?>">Delete <i class="fas fa-trash"></i></a>
+                                        <a class="link-delete mx-2" href="deletetugas.php?id=<?=$tgs["id"]?>&kelasID=<?=$kelasID?>">Delete <i class="fas fa-trash"></i></a>
                                     </div>
                                 
                                 </div>

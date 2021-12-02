@@ -119,7 +119,7 @@ if(isset($_SESSION["admin"])) {
                               $jumlah = show("SELECT COUNT(id) as jumlahmurid FROM siswa WHERE kelas_id = $kelasid")[0];
                             ?>
                             <p class="card-text"><?=$jumlah["jumlahmurid"]; ?> Siswa</p>
-                            <a href="kelaspage.php?kelas=<?=$nvbr["kelasid"]?>" class="btn btn-outline-primary" style="width:20%;">Masuk</a>
+                            <a href="kelaspage.php?kelas=<?=$kelas["kelasid"];?>" class="btn btn-outline-primary" style="width:20%;">Masuk</a>
                           </div>
                         </div>
                   </div>
