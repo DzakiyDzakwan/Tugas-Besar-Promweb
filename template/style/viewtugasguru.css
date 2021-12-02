@@ -5,3 +5,21 @@
 .list-student {
     background-color: #ffff;
 }
+
+.container-right .task-desc, .container-right .assignment-box {
+    background-color: #FFFF;
+    border-radius: 25px;
+}
+
+.card {
+    background-color: #F7F7F7;
+}
+
+.card .card-title {
+    font-family: 'Merriweather';
+}
+
+.card a {
+    text-decoration: none;
+    font-family: 'Roboto Condensed'
+}
