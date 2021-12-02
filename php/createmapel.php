@@ -49,7 +49,6 @@
                 <form class="mx-auto py-4 px-3" method ="POST">
 
                     <table>
-                        <form action=""> 
 
                                 <!-- Name -->
                                  <tr>
@@ -64,8 +63,7 @@
                                     <td colspan="2">
                                        <button class="btn-outline-success form-control" name="add">Add <i class="ms-2 fas fa-plus"></i></button>
                                     </td>
-                                </tr>     
-                        </form>
+                                </tr>   
                     </table> 
 
                 </form>

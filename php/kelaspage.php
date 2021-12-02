@@ -9,6 +9,22 @@ session_start();
 if(!isset($_SESSION["login"])) {
     header('Location: login.php');
 }
+
+//idKelas
+$kelasID = $_GET["kelas"];
+
+//Create tugas
+if(isset($_POST["create"])) {
+
+    if(addTugas($_POST) > 0) {
+        header('Location: kelaspage.php?kelas=$kelasID');
+    } else {
+        echo "gagal bro";
+    }
+}
+
+//var_dump($kelasID);
+
 ?>
 
 <!DOCTYPE html>
@@ -25,16 +41,30 @@ if(!isset($_SESSION["login"])) {
 </head>
 <body>
 
-<?php include 'navbar.php' ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewKelas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Merriweather:wght@300;400;700;900&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style/navbar.css">
+    <link rel="stylesheet" href="../style/viewkelas.css">
+</head>
+<body>
+
+    <?php include'navbar.php'?>
 
       <!-- Isi Konten -->
 
-      <div class="container main-container my-3 px-4 py-2 border">
+      <div class="container main-container my-4 px-4 py-2 border">
 
             <!-- BREADCRUMB -->
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Kelas</li>
                 </ol>
             </nav>
@@ -66,31 +96,38 @@ if(!isset($_SESSION["login"])) {
 
             </div>
 
+            
             <div class="body my-3 px-3 my-3">
 
                 <h4>List Tugas</h4>
 
-                <div class="list-tugas">
+                <!-- <div class="list-tugas">
 
-                </div>
+                </div> -->
 
+                     <!-- LIST TUGAS PHP -->
+                <?php 
+
+                $tugas = show("SELECT * FROM tugas WHERE guru = $navbarID AND kelas = $kelasID");
+
+                ?>
+                
+                <?php foreach($tugas as $tgs) : ?>
                     <div class="accordion" id="accordionPanelsStayOpenExample">
 
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                Tugas #1
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#list-tugas<?=$tgs["id"]?>" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                <?=$tgs["nama_tugas"]?>
                                 </button>
                             </h2>
-                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                            <div id="list-tugas<?=$tgs["id"]?>" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                                 <div class="accordion-body">
-                                    <p>
-
-                                        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                    </p>
+                                    <h6 class="mt-0 mb-3"><?=$tgs["deadline"]?></h6>
+                                    <p><?=$tgs["deskripsi"]?></p>
                                     <div class="d-flex">
-                                        <a class="link-tugas mx-2" href="">See <i class="far fa-eye"></i></a> 
-                                        <a class="link-delete mx-2" href="">Delete <i class="fas fa-trash"></i></a>
+                                        <a class="link-tugas mx-2" href="viewtugasguru.php?tugasID=<?=$tgs["id"]?>">See <i class="far fa-eye"></i></a> 
+                                        <a class="link-delete mx-2" href="deletetugas.php?tugasID=<?=$tgs["id"]?>">Delete <i class="fas fa-trash"></i></a>
                                     </div>
                                 
                                 </div>
@@ -99,70 +136,91 @@ if(!isset($_SESSION["login"])) {
         
         
                     </div>
+                <?php endforeach ; ?>
 
             </div>
 
             <div class="footer my-3 px-3 py-3 d-flex ">
 
-            <!---CREATE TUGAS-->
                 <div class="create-tugas">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#tugasModal">
+                    <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#createTugas">
                         Create Tugas
                     </button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="tugasModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" style="max-width: 700px;">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="createTugas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="max-width: 700px;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
 
-                                <form action="" method="POST">
                                     <div class="modal-body">
 
-                                        <!---FORM TUGAS--->
-                                        <table class="table table-borderless">
-                                         
-                                            <tr>
-                                                <td>
-                                                    <label for="nama">Nama tugas</label>
-                                                    <input class="form-control" placeholder="Masukkan nama tugas" type="text" name="namatugas" id="nama">
-                                                </td>
-                                            </tr>
+                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                                <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                                </symbol>
+                                                <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                                </symbol>
+                                                <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                </symbol>
+                                        </svg> -->
+                                        
+                                            
+                                        <form  method="POST">
+                                            <table class="table table-borderless">
 
-                                            <tr>
-                                                <td>
-                                                    <label for="description">Deskripsi Tugas</label>
-                                                    <textarea class="form-control" placeholder="Masukkan Deskripsi Tugas"  name="deskripsi" id="description"></textarea>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="hidden" name="kelasID" value="<?=$kelasID?>">
+                                                        <input type="hidden" name="guruID" value="<?=$navbarID?>">
+                                                    </td>
+                                                </tr>
 
-                                            <tr>
-                                                <td>
-                                                    <label for="date">Tanggal Deadline</label>
-                                                    <input class="form-control" type="date" id="date" name="deadline">
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="nama">Nama tugas</label>
+                                                        <input class="form-control" placeholder="Masukkan nama tugas" type="text" name="nama" id="nama">
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <label for="description">Deskripsi Tugas</label>
+                                                        <textarea class="form-control" placeholder="Masukkan Deskripsi Tugas" id="description" name="desc"></textarea>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <label for="date">Tanggal Deadline</label>
+                                                        <input class="form-control" type="date" id="date" name="date">
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><button class="btn btn-primary" name="create">Create</button></td>
+                                                </tr>
 
                                         </table>
-                                    
+                                        </form>
+                                            
+
                                     </div>
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary form-control" name="create" > Create </button>
                                     </div>
-                            
-                                    <tr>
-
-                                </form>
-
+                                    
+                                </div>
                             </div>
                         </div>
-                    </div>
+
 
                 </div>
 

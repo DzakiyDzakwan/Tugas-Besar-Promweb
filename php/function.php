@@ -161,6 +161,27 @@ function addKelas($data) {
 
 }
 
+function addTugas($data) {
+
+    global $connection;
+
+    $kelasId = $data["kelasID"];
+    $guruId = $data["guruID"];
+    $judul = $data["nama"];
+    $deskripsi = $data["desc"];
+    $deadline = $data["date"];
+
+    if(empty($judul) || empty($deskripsi)) {
+        return false;
+    }
+
+    $query = mysqli_query($connection,"INSERT INTO tugas(nama_tugas,deskripsi,deadline,guru,kelas) VALUES('$judul','$deskripsi','$deadline','$guruId','$kelasId')");
+
+    return mysqli_affected_rows($connection);
+
+
+}
+
 function show($query) {
 
     global $connection;
