@@ -201,7 +201,7 @@ if(isset($_SESSION["admin"])) {
 
                                     <li>
                                         <div class="list-group-item list-group-item-action">
-                                        <a href="kelaspage.php?kelas=<?=$nvbr["id"]?>" style="color:#000; text-decoration:none; font-family:'Merriweather'; font-weight:bolder;"><?=$nvbr["nama_mapel"]?></a>
+                                        <a href="viewmapel.php?kelas=<?=$nvbr["id"]?>" style="color:#000; text-decoration:none; font-family:'Merriweather'; font-weight:bolder;"><?=$nvbr["nama_mapel"]?></a>
                                         <p><?=$namaGuru["nama_guru"]?></p>
                                         </div>
                                     </li>

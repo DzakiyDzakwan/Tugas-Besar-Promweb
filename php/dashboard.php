@@ -89,7 +89,7 @@ if(isset($_SESSION["admin"])) {
                           <img src="bear1.jpg" class="card-img-top">
                           <div class="card-body">
                             <h5 class="card-title"><?=$mapel["nama_mapel"]?></h5>
-                            <a href="#" class="btn btn-outline-primary" style="width : 50%;">Masuk</a>
+                            <a href="viewmapel.php" class="btn btn-outline-primary" style="width : 50%;">Masuk</a>
                           </div>
                         </div>
                   </div>
