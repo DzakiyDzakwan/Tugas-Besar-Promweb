@@ -104,35 +104,38 @@ if(isset($_SESSION["member"])) {
                             </div>
 
                             <?php foreach($navbar as $mapel) : ?>
-                            <div class="table-nilai px-3 my-4">
-                                <h5 class="mt-3 mb-0"><?=$mapel["nama_mapel"]?></h5>
-                                
-                                <?php 
-                                    $idmapel = $mapel["id"] ;
-                                    $namaGuru = show("SELECT nama_guru FROM guru WHERE mapel_id = $idmapel")[0];
-                                ?>
+                                <div class="table-nilai px-3 my-4">
+                                    <h5 class="mt-3 mb-0"><?=$mapel["nama_mapel"]?></h5>
+                                    
+                                    <?php 
+                                        $idmapel = $mapel["id"] ;
+                                        $namaGuru = show("SELECT nama_guru FROM guru WHERE mapel_id = $idmapel")[0];
 
-                                <span style="font-family:'Roboto Consended';"><?=$namaGuru["nama_guru"]?></span>
+                                        $idSiswa = $data["id"];
 
-                                <table width="100%" class="mx-auto table-bordered">
+                                        $tugas = show("SELECT nilai FROM jawaban WHERE siswa = $idSiswa AND mapel = $idmapel");
+                                        $t = 1;
+                                        
+                                    ?>
 
-                                    <tr>
-                                        <th class="px-3">Nilai 1</th>
-                                        <th class="px-3">Nilai 2</th>
-                                        <th class="px-3">Nilai 3</th>
-                                        <th class="px-3">Nilai 4</th>
-                                        <th class="px-3">Nilai 5</th>
-                                    <tr>
-                                        <td class="p-3">100</td>
-                                        <td class="p-3">80</td>
-                                        <td class="p-3">76</td>
-                                        <td class="p-3">80</td>
-                                        <td class="p-3">90</td>
-                                    </tr>
-                
-                                </table>
+                                    <span style="font-family:'Roboto Consended';"><?=$namaGuru["nama_guru"]?></span>
 
-                            </div>
+                                    <table width="100%" class="mx-auto table table-bordered">
+
+                                        <tr>
+                                            <?php foreach($tugas as $tgs) : ?>
+                                                <th class="px-3 text-center">Tugas 1</th>
+                                                <?php $t ++ ?>
+                                            <?php endforeach ; ?>
+                                        <tr>
+                                            <?php foreach($tugas as $tgs) : ?>
+                                                <td class="p-3"><?=$tgs["nilai"]?></td>
+                                            <?php endforeach ; ?>
+                                        </tr>
+                    
+                                    </table>
+
+                                </div>
                             <?php endforeach ; ?>
                             
                         </div>

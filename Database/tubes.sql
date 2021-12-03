@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2021 at 04:04 PM
+-- Generation Time: Dec 03, 2021 at 03:25 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -56,8 +56,16 @@ CREATE TABLE `jawaban` (
   `jawaban` varchar(200) NOT NULL,
   `nilai` int(10) UNSIGNED DEFAULT 0,
   `siswa` int(10) UNSIGNED NOT NULL,
-  `tugas` int(10) UNSIGNED NOT NULL
+  `tugas` int(10) UNSIGNED NOT NULL,
+  `mapel` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jawaban`
+--
+
+INSERT INTO `jawaban` (`id`, `jawaban`, `nilai`, `siswa`, `tugas`, `mapel`) VALUES
+(1, 'E-Commerce.pdf', 80, 4, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -157,7 +165,7 @@ INSERT INTO `siswa` (`id`, `nama_siswa`, `NIS`, `kelas_id`, `user_id`) VALUES
 CREATE TABLE `tugas` (
   `id` int(10) UNSIGNED NOT NULL,
   `nama_tugas` varchar(200) NOT NULL,
-  `deskripsi` text DEFAULT NULL,
+  `deskripsi` text NOT NULL,
   `deadline` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `guru` int(10) UNSIGNED NOT NULL,
@@ -169,7 +177,8 @@ CREATE TABLE `tugas` (
 --
 
 INSERT INTO `tugas` (`id`, `nama_tugas`, `deskripsi`, `deadline`, `created_at`, `guru`, `kelas`) VALUES
-(1, 'E-Commerce', 'Buatlah Makalah dan PPT tentang E-Commerce', '2021-12-25', '2021-12-01 15:04:03', 6, 2);
+(2, 'E-Commerce', '<p><strong>Buatlah</strong></p><ul><li>makalah tentang e-commerce</li><li>Buat PPT nya</li></ul>', '2021-12-25', '2021-12-02 09:57:52', 6, 2),
+(3, 'Quiz', '<p>Dengan Kelompok yang sudah dibagikan kemarin. Buatlah :</p><ol><li>Mindmapping</li><li>Daftar Tugas</li><li>Form</li></ol><p>Dikumpul dalam bentuk PDF</p>', '2021-12-04', '2021-12-02 15:44:10', 6, 2);
 
 -- --------------------------------------------------------
 
@@ -219,7 +228,8 @@ ALTER TABLE `guru`
 ALTER TABLE `jawaban`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_nilai_siswa` (`siswa`),
-  ADD KEY `fk_jawaban_tugas` (`tugas`);
+  ADD KEY `fk_jawaban_tugas` (`tugas`),
+  ADD KEY `fk_mapel_jawaban` (`mapel`);
 
 --
 -- Indexes for table `kelas`
@@ -280,13 +290,13 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `jawaban`
 --
 ALTER TABLE `jawaban`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `mapel`
@@ -310,7 +320,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -334,6 +344,7 @@ ALTER TABLE `guru`
 --
 ALTER TABLE `jawaban`
   ADD CONSTRAINT `fk_jawaban_tugas` FOREIGN KEY (`tugas`) REFERENCES `tugas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_mapel_jawaban` FOREIGN KEY (`mapel`) REFERENCES `mapel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_nilai_siswa` FOREIGN KEY (`siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
