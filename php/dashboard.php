@@ -89,7 +89,12 @@ if(isset($_SESSION["admin"])) {
                           <img src="bear1.jpg" class="card-img-top">
                           <div class="card-body">
                             <h5 class="card-title"><?=$mapel["nama_mapel"]?></h5>
-                            <a href="viewmapel.php" class="btn btn-outline-primary" style="width : 50%;">Masuk</a>
+                            <?php 
+                              $idmapel = $mapel["id"] ;
+                              $namaGuru = show("SELECT nama_guru FROM guru WHERE mapel_id = $idmapel")[0];
+                            ?>
+                            <p> <?=$namaGuru["nama_guru"]?> </p>
+                            <a href="viewmapel.php?kelas=<?=$mapel["id"]?>"  class="btn btn-outline-primary" style="width : 50%;">Masuk</a>
                           </div>
                         </div>
                   </div>
