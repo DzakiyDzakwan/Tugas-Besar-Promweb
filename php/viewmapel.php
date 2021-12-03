@@ -9,6 +9,16 @@ session_start();
 if(!isset($_SESSION["login"])) {
     header('Location: login.php');
 }
+
+if (isset($_SESSION["member"])) {
+
+  if ($_SESSION["member"] !== "siswa" ) {
+      header('Location: dashboard.php');
+
+  }
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -38,8 +48,13 @@ if(!isset($_SESSION["login"])) {
             </ol>
         </nav>
 
-        <h3 class="mx-auto">Matematika</h3>
-        <p class="mx-auto">GURU 1</p>
+        <?php foreach($navbar as $mapel) : ?>
+          <?php 
+            $idmapel = $mapel["id"] ;
+            $namaGuru = show("SELECT nama_guru FROM guru WHERE mapel_id = $idmapel")[0];
+          ?>
+        <h3 class="mx-auto"><?=$mapel["nama_mapel"]?>   </h3>
+        <p class="mx-auto"> <?=$namaGuru["nama_guru"]?> </p>
 
         <div class="list-tugas">
 
@@ -62,16 +77,15 @@ if(!isset($_SESSION["login"])) {
 
                         </p>
                         <a class="link-tugas" href="">go there</a>
-                      
-                    </div>
-                  </div>
-                </div>
-
-
-              </div>
-
+                        
+                    </div> 
+                  </div> 
+                </div> 
+                <?php endforeach ; ?>
+            </div>
+              
         </div>
-
+        
       </div>
 
       
