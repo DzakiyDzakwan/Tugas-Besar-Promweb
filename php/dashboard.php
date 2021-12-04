@@ -94,7 +94,7 @@ if(isset($_SESSION["admin"])) {
                               $namaGuru = show("SELECT nama_guru FROM guru WHERE mapel_id = $idmapel")[0];
                             ?>
                             <p> <?=$namaGuru["nama_guru"]?> </p>
-                            <a href="viewmapel.php?kelas=<?=$mapel["id"]?>"  class="btn btn-outline-primary" style="width : 50%;">Masuk</a>
+                            <a href="viewmapel.php?mapel=<?=$mapel["id"]?>"  class="btn btn-outline-primary" style="width : 50%;">Masuk</a>
                           </div>
                         </div>
                   </div>

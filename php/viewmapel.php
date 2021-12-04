@@ -19,6 +19,11 @@ if (isset($_SESSION["member"])) {
 
 }
 
+$mapelID = $_GET["mapel"];
+
+$mapel = show("SELECT * FROM mapel WHERE id = $mapelID")[0];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -40,51 +45,52 @@ if (isset($_SESSION["member"])) {
       <!-- Isi Konten -->
       <div class="container py-4 my-4 px-4 border">
 
-         <!-- BREADCRUMB -->
-         <nav aria-label="breadcrumb" class="mx-4">
+        <!-- BREADCRUMB -->
+        <nav aria-label="breadcrumb" class="mx-4">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Mapel</li>
             </ol>
         </nav>
 
-        <?php foreach($navbar as $mapel) : ?>
-          <?php 
-            $idmapel = $mapel["id"] ;
-            $namaGuru = show("SELECT nama_guru FROM guru WHERE mapel_id = $idmapel")[0];
-          ?>
-        <h3 class="mx-auto"><?=$mapel["nama_mapel"]?>   </h3>
-        <p class="mx-auto"> <?=$namaGuru["nama_guru"]?> </p>
+        <?php
 
-        <div class="list-tugas">
+          $kelas = $data["kelas_id"];
+          $namaGuru = show("SELECT guru.nama_guru FROM mapel_kelas JOIN guru ON mapel_kelas.guru = guru.id WHERE mapel_kelas.kelas = $kelas AND guru.mapel_id = $mapelID")[0];
 
-            <h4>List Tugas</h4>
+        
+        ?>
+        
+          <h3 class="mx-auto"><?=$mapel["nama_mapel"]?></h3>
+          <p class="mx-auto"><?=$namaGuru["nama_guru"]?></p>
 
-            <!-- ACCORDION TUGAS -->
-            <div class="accordion" id="accordionPanelsStayOpenExample">
+          <div class="list-tugas">
 
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                      Tugas #1
-                    </button>
-                  </h2>
-                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                    <div class="accordion-body">
-                        <p>
+              <h4>List Tugas</h4>
 
-                            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+              <!-- ACCORDION TUGAS -->
+              <div class="accordion" id="accordionPanelsStayOpenExample">
 
-                        </p>
-                        <a class="link-tugas" href="">go there</a>
-                        
-                    </div> 
-                  </div> 
-                </div> 
-                <?php endforeach ; ?>
-            </div>
-              
-        </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Tugas #1
+                      </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                      <div class="accordion-body">
+                          <p>
+
+                              <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+
+                          </p>
+                          <a class="link-tugas" href="">go there</a>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+          </div>
         
       </div>
 
