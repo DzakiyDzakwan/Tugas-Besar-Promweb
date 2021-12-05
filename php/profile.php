@@ -36,7 +36,7 @@ if(isset($_SESSION["member"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
+    <title>Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Merriweather:wght@300;400;700;900&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/navbar.css">
@@ -186,9 +186,13 @@ if(isset($_SESSION["member"])) {
                 </div>
 
                 <!---Print-->
-                <div class="print-button">
-                    <button class="btn btn-success">Report<i class="fas fa-print mx-2"></i></button>
-                </div>
+                <?php if(isset($_SESSION["member"])) : ?>
+                    <?php if($_SESSION["member"] === "siswa") : ?>
+                        <div class="print-button">
+                            <a href="reportsiswa.php" target="blank" class="btn btn-success">Report<i class="fas fa-print mx-2"></i></a>
+                        </div>
+                    <?php endif ;?>
+                <?php endif ; ?>
 
             </div>
         </div>
