@@ -56,7 +56,7 @@ if (isset($_POST["register"])) {
 
                                  <tr>
                                     <td colspan="2">
-                                        <label for="uname">User name</label>
+                                        <label for="uname">Username</label>
                                         <?php if(isset($_POST["register"])) : ?>
                                             <?php if(empty($_POST["uname"])) : ?>
 

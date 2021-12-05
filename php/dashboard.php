@@ -28,7 +28,7 @@ if(isset($_SESSION["admin"])) {
     <link rel="stylesheet" href="style/navbar.css">
     <link rel="stylesheet" href="style/dashboard.css">
 
-    <title>Dashboard Prototype</title>
+    <title>Dashboard</title>
 
 </head>
 <body>

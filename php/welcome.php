@@ -4,7 +4,7 @@ session_start();
 
 require 'function.php';
 
-var_dump($_SESSION);
+//var_dump($_SESSION);
 
 //check session
 if (!isset($_SESSION["member"])) {
@@ -203,7 +203,7 @@ if ($_SESSION["member"]==="siswa") {
         </div>
     </div>
 
-    <a href="logout.php">Logout</a>
+    <!-- <a href="logout.php">Logout</a> -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>

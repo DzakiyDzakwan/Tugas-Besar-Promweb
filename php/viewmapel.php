@@ -56,8 +56,9 @@ $mapel = show("SELECT * FROM mapel WHERE id = $mapelID")[0];
         <?php
 
           $kelas = $data["kelas_id"];
-          $namaGuru = show("SELECT guru.nama_guru FROM mapel_kelas JOIN guru ON mapel_kelas.guru = guru.id WHERE mapel_kelas.kelas = $kelas AND guru.mapel_id = $mapelID")[0];
-
+          $namaGuru = show("SELECT guru.nama_guru, guru.id FROM mapel_kelas JOIN guru ON mapel_kelas.guru = guru.id WHERE mapel_kelas.kelas = $kelas AND guru.mapel_id = $mapelID")[0];
+          $guruID = $namaGuru["id"];
+          $tugas = show("SELECT * FROM tugas WHERE guru = $guruID AND kelas = $navbarID");
         
         ?>
         
@@ -70,24 +71,22 @@ $mapel = show("SELECT * FROM mapel WHERE id = $mapelID")[0];
 
               <!-- ACCORDION TUGAS -->
               <div class="accordion" id="accordionPanelsStayOpenExample">
-
+                  <?php foreach($tugas as $tgs) :?>
                   <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        Tugas #1
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne<?=$tgs["id"]?>" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        <?=$tgs["nama_tugas"]?>
                       </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                    <div id="panelsStayOpen-collapseOne<?=$tgs["id"]?>" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                       <div class="accordion-body">
-                          <p>
-
-                              <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-
-                          </p>
-                          <a class="link-tugas" href="">go there</a>
+                          <p><?=$tgs["deskripsi"]?></p>
+                          <h6>Deadline = <?=$tgs["deadline"]?></h6>
+                          <a class="link-tugas" href="viewtugas.php?tugas=<?=$tgs["id"]?>">lihat tugas</a>
                       </div>
                     </div>
                   </div>
+                  <?php endforeach ; ?>
               </div>
 
           </div>

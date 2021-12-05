@@ -196,7 +196,7 @@ if (isset($_POST['login'])){
 
                                  <tr>
                                     <td colspan="2">
-                                        <label for="uname">User name</label>
+                                        <label for="uname">Username</label>
                                         <input type="text" class="form-control" name="uname" id="uname" autocomplete="off" >
                                     </td>
                                  </tr>

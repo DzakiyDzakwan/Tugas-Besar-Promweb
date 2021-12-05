@@ -20,6 +20,8 @@ if(isset($_SESSION["admin"])) {
             $navbarID = $data["kelas_id"];
             $navbar= show("SELECT mapel.* FROM siswa JOIN mapel_kelas ON mapel_kelas.kelas = siswa.kelas_id JOIN guru ON guru.id = mapel_kelas.guru JOIN mapel ON mapel.id = guru.mapel_id WHERE siswa.user_id = $id ORDER BY nama_mapel ASC");
 
+            //Tugas Navbar
+            $tugasNavbar = show("SELECT * FROM tugas WHERE kelas = $navbarID");
             //CARA PANJANG
 
            /*  $mapelID = show("SELECT * FROM mapel_kelas JOIN guru ON mapel_kelas.guru = guru.id WHERE kelas = $navbarID");
@@ -201,7 +203,7 @@ if(isset($_SESSION["admin"])) {
 
                                     <li>
                                         <div class="list-group-item list-group-item-action">
-                                        <a href="viewmapel.php?kelas=<?=$nvbr["id"]?>" style="color:#000; text-decoration:none; font-family:'Merriweather'; font-weight:bolder;"><?=$nvbr["nama_mapel"]?></a>
+                                        <a href="viewmapel.php?mapel=<?=$nvbr["id"]?>" style="color:#000; text-decoration:none; font-family:'Merriweather'; font-weight:bolder;"><?=$nvbr["nama_mapel"]?></a>
                                         <p><?=$namaGuru["nama_guru"]?></p>
                                         </div>
                                     </li>
@@ -251,9 +253,9 @@ if(isset($_SESSION["admin"])) {
                                 <div class="accordion-body">
                                     <div class="list-group">
                                         <ul>
-                                        <li><a href="#" class="list-group-item list-group-item-action">Membuat Diagram Sesuai dengan kaidah nya masing masing</a></li>
-                                        <li><a href="#" class="list-group-item list-group-item-action">Website Sederhana</a></li>
-                                        <li><a href="#" class="list-group-item list-group-item-action">blablabla</a></li>
+                                        <?php foreach($tugasNavbar as $tugas) : ?>
+                                            <li><a href="viewtugas.php?tugas=<?=$tugas["id"]?>" class="list-group-item list-group-item-action"><?=$tugas["nama_tugas"]?></a></li>
+                                        <?php endforeach;?>
                                         </ul>           
                                     </div>
                                 </div>
