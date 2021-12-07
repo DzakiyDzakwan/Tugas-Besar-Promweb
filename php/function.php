@@ -437,6 +437,19 @@ function editClass($data) {
 
 }
 
+function editNilai($data) {
+
+    global $connection;
+
+    $id = $data["id"];
+    $nilai = $data["nilai"];
+
+    mysqli_query($connection, "UPDATE jawaban SET nilai = '$nilai' WHERE id = $id");
+
+    return mysqli_affected_rows($connection);
+
+}
+
 
 
 ?>

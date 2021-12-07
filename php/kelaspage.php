@@ -143,8 +143,8 @@ if(isset($_POST["create"])) {
                                     <h6 class="mt-0 mb-3"><?=$tgs["created_at"]?></h6>
                                     <p><?=$tgs["deskripsi"]?></p>
                                     <div class="d-flex">
-                                        <a class="link-tugas mx-2" href="viewtugasguru.php?tugasID=<?=$tgs["id"]?>">See <i class="far fa-eye"></i></a> 
-                                        <a class="link-delete mx-2" href="deletetugas.php?id=<?=$tgs["id"]?>&kelasID=<?=$kelasID?>">Delete <i class="fas fa-trash"></i></a>
+                                        <a class="link-tugas mx-2" href="viewtugasguru.php?tugasID=<?=$tgs["id"]?>&kelasID=<?=$kelasID?>">See <i class="far fa-eye"></i></a> 
+                                        <a class="link-delete mx-2" href="deletetugas.php?id=<?=$tgs["id"]?>">Delete <i class="fas fa-trash"></i></a>
                                     </div>
                                 
                                 </div>
