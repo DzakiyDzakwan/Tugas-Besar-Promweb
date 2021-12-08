@@ -82,7 +82,7 @@ $mapel = show("SELECT * FROM mapel WHERE id = $mapelID")[0];
                       <div class="accordion-body">
                           <p><?=$tgs["deskripsi"]?></p>
                           <h6>Deadline = <?=$tgs["deadline"]?></h6>
-                          <a class="link-tugas" href="viewtugas.php?tugas=<?=$tgs["id"]?>">lihat tugas</a>
+                          <a class="link-tugas" href="viewtugas.php?tugas=<?=$tgs["id"]?>&mapel=<?=$mapelID?>">lihat tugas</a>
                       </div>
                     </div>
                   </div>

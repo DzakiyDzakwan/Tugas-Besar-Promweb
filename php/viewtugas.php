@@ -20,7 +20,27 @@ if (isset($_SESSION["member"])) {
 }
 
 $tugasID = $_GET["tugas"];
+$mapelID = $_GET["mapel"];
 $viewtugas = show("SELECT * FROM tugas JOIN guru ON tugas.guru = guru.id WHERE tugas.id = $tugasID")[0];
+
+//Upload tugas
+if(isset($_POST["upload"])) {
+    
+    //var_dump($_FILES);
+    if(addJawaban($_POST) > 0) {
+        header("Location: viewtugas.php?tugas=$tugasID&mapel=$mapelID");
+    }
+
+}
+
+//Update tugas
+if(isset($_POST["update"])) {
+
+    if(updateJawaban($_POST) > 0) {
+        header("Location: viewtugas.php?tugas=$tugasID&mapel=$mapelID");
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -65,12 +85,32 @@ $viewtugas = show("SELECT * FROM tugas JOIN guru ON tugas.guru = guru.id WHERE t
                     <div class="sbmt-task px-4">
                         <div class="box-sbmt border shadow px-3 py-3">
 
-                            <form action="" method="POST">
-                                <p class="my-0 mx-auto">Document file : <span>png, jpg, pdf, doc</span></p>
-                                <input class="form-control-sm form-control" type="file" id="formFile">
-                                <input type="hidden" name="id">
-                                <button class="btn mx-auto btn-outline-success my-2">Upload<i class="mx-2 fas fa-file-upload"></i></button>
-                            </form>
+                            <?php
+                             $siswaID = $data["id"];
+                             $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE siswa = $siswaID AND tugas = $tugasID");
+                             $jawaban = show("SELECT * FROM jawaban WHERE siswa = $siswaID AND tugas = $tugasID")[0];
+                             $jawabanID = $jawaban["id"];
+                             $checkJawaban = mysqli_num_rows($check);
+                            ?>
+
+
+                            <?php if($checkJawaban == 0) : ?>
+                                <form method="POST" enctype="multipart/form-data">
+                                    <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
+                                    <input  type="file" id="formFile" class="form-control-sm form-control" name="file">
+                                    <input type="hidden" name="tugas" value="<?=$tugasID?>">
+                                    <input type="hidden" name="siswa" value="<?=$siswaID?>">
+                                    <input type="hidden" name="mapel" value="<?=$mapelID?>">
+                                    <button class="btn mx-auto btn-outline-success my-2" name="upload">Upload<i class="mx-2 fas fa-file-upload"></i></button>
+                                </form>
+                            <?php else : ?>
+                                <form method="POST" enctype="multipart/form-data">
+                                    <p class="my-0 mx-auto">Document file : <span>pdf</span></p>
+                                    <input  type="file" id="formFile" class="form-control-sm form-control" name="file">
+                                    <input type="hidden" name="jawaban" value="<?=$jawabanID?>">
+                                    <button class="btn mx-auto btn-success my-2" name="update">Update<i class="mx-2 fas fa-file-upload"></i></button>
+                                </form>
+                            <?php endif ; ?>
 
                         </div>
                     </div>

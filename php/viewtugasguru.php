@@ -117,22 +117,21 @@ $tugas = show("SELECT nama_tugas FROM tugas WHERE id = $tugasID")[0];
                                 
                                 <div class="overflow-auto shadow" style="height: 210px;">
 
-                                    <li class="list-group-item">A list item</li>
-                                    <li class="list-group-item">A list item</li>
-                                    <li class="list-group-item">A list item</li>
+                                <?php foreach($siswa as $ssw) : ?>
+                                    
+                                    <?php
+                                    
+                                    $siswaID = $ssw["id"];
+                                    $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE siswa = $siswaID  AND tugas = $tugasID");
 
-                                    <li class="list-group-item">A list item</li>
-                                    <li class="list-group-item">A list item</li>
-                                    <li class="list-group-item">A list item</li>
+                                    $checkJawaban = mysqli_num_rows($check);
 
-                                    <li class="list-group-item">A list item</li>
-                                    <li class="list-group-item">A list item</li>
-                                    <li class="list-group-item">A list item</li>
+                                    ?>
 
-                                    <li class="list-group-item">A list item</li>
-                                    <li class="list-group-item">A list item</li>
-                                    <li class="list-group-item">A list item</li>
-
+                                    <?php if($checkJawaban == 0) : ?>
+                                        <li class="list-group-item"><?=$ssw["nama_siswa"]?></li>
+                                    <?php endif ; ?>
+                                <?php endforeach ; ?>
                                 </div>
 
                             </ol>
@@ -159,7 +158,7 @@ $tugas = show("SELECT nama_tugas FROM tugas WHERE id = $tugasID")[0];
                                 <tr>
                                     <td><?=$jumlahSiswa?></td>
                                     <td><?=$totalData?></td>
-                                    <td>51</td>
+                                    <td><?=$jumlahSiswa - $totalData?></td>
                                 </tr>
                             </table>
                         </div>
@@ -182,7 +181,7 @@ $tugas = show("SELECT nama_tugas FROM tugas WHERE id = $tugasID")[0];
                                         <div class="card w-100 text-center">
                                             <div class="card-body">
                                             <h6 class="card-title"><?=$jwbn["nama_siswa"]?></h6>
-                                            <a class="" href="" download=""><?=$jwbn["jawaban"]?></a>
+                                            <a class="" href="file/<?=$jwbn["jawaban"]?>" download="<?=$jwbn["jawaban"]?>"><?=$jwbn["jawaban"]?></a>
                                             <form class="mt-2" method="POST">
                                                 <input type="hidden" name="id" value="<?=$jwbn["id"]?>">
                                                 <input type="number" name="nilai" class="form-control" value="<?=$jwbn["nilai"]?>" style="text-align: center;">
