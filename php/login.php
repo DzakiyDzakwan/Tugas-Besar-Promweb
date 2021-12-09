@@ -213,7 +213,7 @@ if (isset($_POST['login'])){
                                                 <input type="checkbox" name="remember" id="remember">
                                                 <label for="remember" style="font-size: 12px;">remember me</label>
                                             </div>
-                                            <a href="logout.php" style="font-size: 14px; text-decoration: none; margin-top: 3px;">forgot ?</a>
+                                            <!-- <a href="logout.php" style="font-size: 14px; text-decoration: none; margin-top: 3px;">forgot ?</a> -->
                                         </div>
                                      </td>
                                  </tr>

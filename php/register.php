@@ -134,7 +134,7 @@ if (isset($_POST["register"])) {
                                          <select class="form-select"aria-label="Default select example" name="status" id="status" >
                                             <option value="SISWA">Siswa</option>
                                             <option value="GURU">Guru</option>
-                                            <option value="ADMIN">Admin</option>
+                                            <!-- <option value="ADMIN">Admin</option> -->
                                           </select>
                                      </td>
                                  </tr>

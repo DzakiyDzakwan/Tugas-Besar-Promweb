@@ -64,8 +64,8 @@ if(isset($_POST["update"])) {
             <!-- BREADCRUMB -->
             <nav aria-label="breadcrumb" class="mx-4">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Mapel</a></li>
+                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                    <li class="breadcrumb-item"><a href="viewmapel.php?mapel=<?=$mapelID?>">Mapel</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Tugas</li>
                 </ol>
             </nav>
@@ -88,9 +88,11 @@ if(isset($_POST["update"])) {
                             <?php
                              $siswaID = $data["id"];
                              $check = mysqli_query($connection, "SELECT * FROM jawaban WHERE siswa = $siswaID AND tugas = $tugasID");
-                             $jawaban = show("SELECT * FROM jawaban WHERE siswa = $siswaID AND tugas = $tugasID")[0];
-                             $jawabanID = $jawaban["id"];
                              $checkJawaban = mysqli_num_rows($check);
+                             if($checkJawaban > 0 ) {
+                                $jawaban = show("SELECT * FROM jawaban WHERE siswa = $siswaID AND tugas = $tugasID")[0];
+                                $jawabanID = $jawaban["id"];
+                             }  
                             ?>
 
 
