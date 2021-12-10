@@ -69,6 +69,7 @@ if(isset($_POST["create"])) {
          /* TUgas */
          $tugas = show("SELECT * FROM tugas WHERE guru = $navbarID AND kelas = $kelasID");
          $siswa = show("SELECT * FROM siswa WHERE kelas_id = $kelasID");
+         $kelas = show("SELECT * FROM kelas JOIN guru ON kelas.wali_kelas = guru.id WHERE kelas.id = $kelasID")[0];
 
          $countSiswa = count($siswa);
          $countTugas = count($tugas) ;
@@ -90,8 +91,8 @@ if(isset($_POST["create"])) {
 
                 <div>
                     <div>
-                        <h4 class="my-0">Kelas 12 A IPA</h4>
-                        <span>Wali Kelas</span>
+                        <h4 class="my-0"><?=$kelas["nama_kelas"]?> <?=$kelas["jurusan"]?></h4>
+                        <span><?=$kelas["nama_guru"]?></span>
                     </div>
                     <div class="create-tugas">
 
@@ -144,7 +145,7 @@ if(isset($_POST["create"])) {
                                     <p><?=$tgs["deskripsi"]?></p>
                                     <div class="d-flex">
                                         <a class="link-tugas mx-2" href="viewtugasguru.php?tugasID=<?=$tgs["id"]?>&kelasID=<?=$kelasID?>">See <i class="far fa-eye"></i></a> 
-                                        <a class="link-delete mx-2" href="deletetugas.php?id=<?=$tgs["id"]?>">Delete <i class="fas fa-trash"></i></a>
+                                        <a class="link-delete mx-2" href="deletetugas.php?id=<?=$tgs["id"]?>&kelas=<?=$kelasID?>">Delete <i class="fas fa-trash"></i></a>
                                     </div>
                                 
                                 </div>
@@ -202,7 +203,7 @@ if(isset($_POST["create"])) {
                                                 <tr>
                                                     <td>
                                                         <label for="nama">Nama tugas</label>
-                                                        <input class="form-control" placeholder="Masukkan nama tugas" type="text" name="nama" id="nama">
+                                                        <input class="form-control" placeholder="Masukkan nama tugas" type="text" name="nama" id="nama" autocomplete="off">
                                                     </td>
                                                 </tr>
 

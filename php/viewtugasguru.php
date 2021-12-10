@@ -79,7 +79,7 @@ $tugas = show("SELECT nama_tugas FROM tugas WHERE id = $tugasID")[0];
              <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                  <li class="breadcrumb-item"><a href="kelaspage.php?kelas=2">Kelas</a></li>
+                  <li class="breadcrumb-item"><a href="kelaspage.php?kelas=<?=$kelasID?>">Kelas</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Tugas</li>
                 </ol>
             </nav>

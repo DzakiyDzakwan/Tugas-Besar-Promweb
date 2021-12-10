@@ -85,7 +85,7 @@ if(isset($_SESSION["admin"])) {
 
               <?php foreach($navbar as $mapel) : ?>
                   <div class="col-lg-6 col-md-6 my-3">
-                      <div class="card text-center">
+                      <div class="card text-center shadow">
                           <img src="bear1.jpg" class="card-img-top">
                           <div class="card-body">
                             <h5 class="card-title"><?=$mapel["nama_mapel"]?></h5>
@@ -124,7 +124,8 @@ if(isset($_SESSION["admin"])) {
                               $jumlah = show("SELECT COUNT(id) as jumlahmurid FROM siswa WHERE kelas_id = $kelasid")[0];
                             ?>
                             <p class="card-text"><?=$jumlah["jumlahmurid"]; ?> Siswa</p>
-                            <a href="kelaspage.php?kelas=<?=$kelas["kelasid"];?>" class="btn btn-outline-primary" style="width:20%;">Masuk</a>
+                            <a href="kelaspage.php?kelas=<?=$kelas["kelasid"];?>" class="btn btn-outline-primary my-2" style="width:100%;">Masuk</a>
+                            <a href="deletemapelkelas.php?kelas=<?=$kelas["kelasid"];?>&guru=<?=$navbarID?>" class="btn btn-outline-danger my-2" style="width:100%;">Unenrollclass</a>
                           </div>
                         </div>
                   </div>

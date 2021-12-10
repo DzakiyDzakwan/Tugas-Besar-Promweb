@@ -3,7 +3,7 @@
 require 'function.php';
 
 $id = $_GET["id"];
-$kelasID = $_GET["kelasID"];
+$kelasID = $_GET["kelas"];
 
 $hapus = mysqli_query($connection, "DELETE FROM tugas WHERE id = $id ");
 

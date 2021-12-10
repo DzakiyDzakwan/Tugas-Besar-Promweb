@@ -9,12 +9,12 @@ $hapus = mysqli_query($connection, "DELETE FROM mapel WHERE id = $id ");
 if (mysqli_affected_rows($connection) > 0) {
     echo "<script>
             alert(`data berhasil dihapus`)
-            document.location.href = 'siswa.php'
+            document.location.href = 'mapel.php'
             </script>";
 } else {
     echo "<script>
             alert('data gagal dihapus')
-            document.location.href = 'siswa.php'
+            document.location.href = 'mapel.php'
             </script>";
 }
 

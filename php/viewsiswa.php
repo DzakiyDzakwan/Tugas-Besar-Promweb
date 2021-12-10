@@ -42,6 +42,7 @@ $kelasID = $_GET["kelas"];
    <?php 
    
     $siswa = show("SELECT * FROM siswa WHERE kelas_id = $kelasID ORDER BY nama_siswa ASC");
+    $jumlahSiswa = count($siswa);
     $tugas = show("SELECT * FROM tugas WHERE guru = $navbarID AND kelas = $kelasID");
 
    ?>
@@ -59,8 +60,8 @@ $kelasID = $_GET["kelas"];
 
         <!-- HEADER -->
         <div class="header d-flex">
-            <p><i class="fas fa-user-graduate mx-2"></i>54</p>
-            <a class="btn btn-outline-success" href="">Report</a>
+            <p><i class="fas fa-user-graduate mx-2"></i><?=$jumlahSiswa?></p>
+            <a class="btn btn-outline-success" href="reportnilai.php?kelas=<?=$kelasID?>" target="blank">Report</a>
         </div>
 
         <!-- BODY -->
@@ -84,27 +85,30 @@ $kelasID = $_GET["kelas"];
                         <td><?=$ssw["nama_siswa"]?></td>
                         
                         <?php
-
+                            $nilai = 0;
                             $mapel = $data["mapel_id"];
                             $siswaID = $ssw["id"];
 
                             $nilai = show("SELECT nilai FROM jawaban WHERE siswa = $siswaID AND mapel = $mapel ") ;
+                            //var_dump($nilai);
+                            
                          ?>
 
                         <?php foreach($nilai as $nli) : ?>
-                            <td>80</td>
+                            <td><?=($nli["nilai"])?></td>
                         <?php endforeach ; ?>
                     </tr>
                 <?php endforeach ; ?>
 
+
                 </tbody>
 
-                <tfoot>
+                <!-- <tfoot>
                     <tr>
                         <td>Average</td>
                         <td>85,5</td>
                     </tr>
-                </tfoot>
+                </tfoot> -->
             </table>
 
         </div>
