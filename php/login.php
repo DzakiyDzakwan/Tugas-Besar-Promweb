@@ -4,10 +4,6 @@ require 'function.php';
 
 session_start();
 
-/* var_dump($_COOKIE);
-echo "<br>";
-var_dump($_SESSION); */
-
 //check cookie
 
 if(isset($_COOKIE["login"])) {
