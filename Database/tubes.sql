@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2021 at 01:06 AM
+-- Generation Time: Dec 14, 2021 at 01:22 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -44,7 +44,8 @@ INSERT INTO `guru` (`id`, `nama_guru`, `NIG`, `mapel_id`, `user_id`) VALUES
 (10, 'Maulida Yatna', '191102002', 3, 23),
 (11, 'Zulaika Hana', '191102003', 6, 24),
 (12, 'Efendi Ginting', '191102004', 5, 25),
-(13, 'Zainal Arifin', '191102005', 2, 27);
+(13, 'Zainal Arifin', '191102005', 2, 27),
+(14, 'Guru 6', '191201223', 6, 30);
 
 -- --------------------------------------------------------
 
@@ -58,16 +59,9 @@ CREATE TABLE `jawaban` (
   `nilai` int(10) UNSIGNED DEFAULT 0,
   `siswa` int(10) UNSIGNED NOT NULL,
   `tugas` int(10) UNSIGNED NOT NULL,
-  `mapel` int(10) UNSIGNED NOT NULL
+  `mapel` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `jawaban`
---
-
-INSERT INTO `jawaban` (`id`, `jawaban`, `nilai`, `siswa`, `tugas`, `mapel`) VALUES
-(7, 'UTS - PemrogBerorientasiObjek-S1TIA_2020.pdf', 100, 9, 6, 5),
-(8, 'JADWAL UAS SEMESTER GANJIL 2021-2022.pdf', 80, 11, 6, 5);
 
 -- --------------------------------------------------------
 
@@ -90,7 +84,8 @@ INSERT INTO `kelas` (`id`, `nama_kelas`, `jurusan`, `wali_kelas`) VALUES
 (7, '10 A', 'IPA', 9),
 (8, '10 A', 'IPS', 10),
 (9, '11 A', 'IPA', 12),
-(10, '11 A', 'IPS', 11);
+(10, '11 A', 'IPS', 11),
+(11, '12 A', 'IPS', 13);
 
 -- --------------------------------------------------------
 
@@ -113,7 +108,9 @@ INSERT INTO `mapel` (`id`, `nama_mapel`, `Created_at`) VALUES
 (2, 'B. Indonesia', '2021-11-13 02:50:46'),
 (3, 'Matematika Peminatan', '2021-11-13 17:17:56'),
 (5, 'Fisika', '2021-12-10 05:03:08'),
-(6, 'Kimia', '2021-12-10 05:03:11');
+(6, 'Biologi', '2021-12-10 05:03:11'),
+(7, 'Penjaskes', '2021-12-13 12:49:55'),
+(8, 'TIK', '2021-12-13 13:45:26');
 
 -- --------------------------------------------------------
 
@@ -157,7 +154,8 @@ INSERT INTO `siswa` (`id`, `nama_siswa`, `NIS`, `kelas_id`, `user_id`) VALUES
 (10, 'Ahmad Budiawan', '211402002', 8, 20),
 (11, 'Reisa Ananda', '211402003', 7, 21),
 (12, 'Ilham Kurniawan', '211302001', 8, 28),
-(13, 'Ayu Nabila', '211302003', 8, 29);
+(13, 'Ayu Nabila', '211302003', 8, 29),
+(15, 'Siswa 7', '211402007', 7, 32);
 
 -- --------------------------------------------------------
 
@@ -180,7 +178,8 @@ CREATE TABLE `tugas` (
 --
 
 INSERT INTO `tugas` (`id`, `nama_tugas`, `deskripsi`, `deadline`, `created_at`, `guru`, `kelas`) VALUES
-(6, 'Hukum Archimedes dan Pascal', '<p>Buatlah <strong>Rangkuman</strong> tentang <strong>HUKUM ARCHIMEDES</strong>&nbsp;</p><p>Buatlah rangkuman dalam bentuk <strong>PDF</strong></p>', '2021-12-24', '2021-12-10 07:12:06', 9, 7);
+(8, 'Tugas 2', '<p>Buatlah TUgas&nbsp;</p><ul><li>Meringkas</li><li>Menulis</li><li>Membaca</li></ul><p><strong>dalam bentuk PDF</strong></p>', '2021-12-23', '2021-12-12 07:50:13', 9, 7),
+(11, 'dasdasdasasd', '<p>asdasdasdadsadsas</p>', '2021-12-16', '2021-12-13 14:05:25', 9, 7);
 
 -- --------------------------------------------------------
 
@@ -215,7 +214,9 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `status`, `Created_at
 (26, 'guru1', '$2y$10$4PsUfpTNUbobH4ur0liaH.MZt0nauZv1GPRgzZiAlf.JQWb2gaIXy', 'guru1@gmail.com', 'GURU', '2021-12-10 05:04:36'),
 (27, 'guru5', '$2y$10$9yBeBKDAM5IrNjbd8719VeoTDvaLtq7jC1cuboUN8Ru4VC1GzHulK', 'guru5@gmail.com', 'GURU', '2021-12-10 05:07:46'),
 (28, 'siswa4', '$2y$10$cptKIp2XXcSTmSDj8Bm78utwbjGwVrcJGQMeIKGmEW4h.I/4vOHsS', 'siswa4@gmail.com', 'SISWA', '2021-12-10 05:17:33'),
-(29, 'siswa5', '$2y$10$oyg78JO4xOtdXCxYqoZrYu69xLlAoWq/8hAJ7QwFyJauRYH0UzVu.', 'siswa5@gmail.com', 'SISWA', '2021-12-10 05:17:52');
+(29, 'siswa5', '$2y$10$oyg78JO4xOtdXCxYqoZrYu69xLlAoWq/8hAJ7QwFyJauRYH0UzVu.', 'siswa5@gmail.com', 'SISWA', '2021-12-10 05:17:52'),
+(30, 'guru6', '$2y$10$uB.QOpvmiaNBYZVAU64Lsup3z/x5afJ3CMT3Tw4diFRwvueIDCek.', 'guru6@gmail.com', 'GURU', '2021-12-13 13:06:51'),
+(32, 'siswa7', '$2y$10$OAqnGnqS9Q71GdB/jueA0.fk3SWhNtEAO4zZN/IXn65175CLREreC', 'siswa7@gmail.com', 'SISWA', '2021-12-13 14:01:48');
 
 --
 -- Indexes for dumped tables
@@ -291,49 +292,49 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `jawaban`
 --
 ALTER TABLE `jawaban`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `mapel_kelas`
 --
 ALTER TABLE `mapel_kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables
