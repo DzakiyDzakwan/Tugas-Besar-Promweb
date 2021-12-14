@@ -40,7 +40,7 @@ $dataAwal = ($halamanAktif * $dataPerHalaman) - $dataPerHalaman;
 
 
 //Jawaban
-$jawaban = show("SELECT jawaban.id as id, jawaban.jawaban as jawaban, jawaban.nilai as nilai, siswa.id as siswa_id, siswa.nama_siswa as nama_siswa FROM jawaban JOIN siswa on jawaban.siswa = siswa.id WHERE tugas = $tugasID LIMIT $dataAwal, $dataPerHalaman");
+$jawaban = show("SELECT jawaban.id as id, jawaban.jawaban as jawaban, jawaban.nilai as nilai, jawaban.created_at as waktu, siswa.id as siswa_id, siswa.nama_siswa as nama_siswa FROM jawaban JOIN siswa on jawaban.siswa = siswa.id WHERE tugas = $tugasID LIMIT $dataAwal, $dataPerHalaman");
 
 //nilaiTugas
 if(isset($_POST["nilaiTugas"])) {
@@ -99,7 +99,8 @@ $tugas = show("SELECT nama_tugas FROM tugas WHERE id = $tugasID")[0];
                                 <div class="overflow-auto" style="height: 210px;">
 
                                 <?php foreach($jawaban as $jwbn) : ?>
-                                    <li class="list-group-item"><?=$jwbn["nama_siswa"]?></li>
+                                    <?php $date = date('d M Y' , strtotime($jwbn["waktu"])) ?>
+                                    <li class="list-group-item"><?=$jwbn["nama_siswa"]?>,<?=$date?></li>
                                 <?php endforeach ; ?>
 
                                 </div>
@@ -129,7 +130,7 @@ $tugas = show("SELECT nama_tugas FROM tugas WHERE id = $tugasID")[0];
                                     ?>
 
                                     <?php if($checkJawaban == 0) : ?>
-                                        <li class="list-group-item"><?=$ssw["nama_siswa"]?></li>
+                                        <li class="list-group-item "><?=$ssw["nama_siswa"]?></li>
                                     <?php endif ; ?>
                                 <?php endforeach ; ?>
                                 </div>

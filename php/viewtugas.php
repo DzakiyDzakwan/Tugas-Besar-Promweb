@@ -78,7 +78,8 @@ if(isset($_POST["update"])) {
                         </div>
 
                         <div class="guru px-4">
-                            <p><?=$viewtugas["nama_guru"]?>, <?=$viewtugas["deadline"]?></p>
+                            <?php $date = date('d M Y',strtotime($viewtugas["created_at"]));?>
+                            <p><?=$viewtugas["nama_guru"]?>, <?=$date?></p>
                         </div>
                     </div>
 

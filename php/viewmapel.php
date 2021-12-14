@@ -80,8 +80,9 @@ $mapel = show("SELECT * FROM mapel WHERE id = $mapelID")[0];
                     </h2>
                     <div id="panelsStayOpen-collapseOne<?=$tgs["id"]?>" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                       <div class="accordion-body">
+                        <?php $date = date('d M Y',strtotime($tgs["deadline"]));?>
                           <p><?=$tgs["deskripsi"]?></p>
-                          <h6>Deadline = <?=$tgs["deadline"]?></h6>
+                          <h6>Deadline = <?=$date?></h6>
                           <a class="link-tugas" href="viewtugas.php?tugas=<?=$tgs["id"]?>&mapel=<?=$mapelID?>">lihat tugas</a>
                       </div>
                     </div>

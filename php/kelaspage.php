@@ -141,7 +141,8 @@ if(isset($_POST["create"])) {
                             </h2>
                             <div id="list-tugas<?=$tgs["id"]?>" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                                 <div class="accordion-body">
-                                    <h6 class="mt-0 mb-3"><?=$tgs["created_at"]?></h6>
+                                    <?php $date = date('d M Y' , strtotime($tgs["created_at"])) ; ?>
+                                    <h6 class="mt-0 mb-3">Created : <?=$date?></h6>
                                     <p><?=$tgs["deskripsi"]?></p>
                                     <div class="d-flex">
                                         <a class="link-tugas mx-2" href="viewtugasguru.php?tugasID=<?=$tgs["id"]?>&kelasID=<?=$kelasID?>">See <i class="far fa-eye"></i></a> 
