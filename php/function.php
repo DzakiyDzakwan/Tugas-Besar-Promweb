@@ -269,16 +269,30 @@ function cariSiswa($data) {
     
     $keyword = $data["keyword"];
     $filter = $data["filter"];
-        
+
     if(empty($keyword)) {
-        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE kelas.jurusan LIKE '%$filter%' ORDER BY siswa.nama_siswa ASC" ;
+        $siswa = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE kelas.jurusan LIKE '%$filter%' ORDER BY siswa.nama_siswa ASC" ;
     } elseif(empty($filter)) {
-        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%' ORDER BY siswa.nama_siswa ASC";
+        $siswa = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%' ORDER BY siswa.nama_siswa ASC";
     } else {
-        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%' AND kelas.jurusan LIKE '%$filter%' ORDER BY siswa.nama_siswa ASC";
+        $siswa = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%' AND kelas.jurusan LIKE '%$filter%' ORDER BY siswa.nama_siswa ASC";
     }
 
-    //return var_dump($filter);
+    $totalData = count(show($siswa));
+    $dataPerhalaman = 5;
+    $jumlahHalaman = ceil($totalData/$dataPerhalaman);
+    $halamanAktif = 1;
+    $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
+        
+    if(empty($keyword)) {
+        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE kelas.jurusan LIKE '%$filter%' ORDER BY siswa.nama_siswa ASC LIMIT $dataAwal, $dataPerhalaman" ;
+    } elseif(empty($filter)) {
+        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%' ORDER BY siswa.nama_siswa ASC LIMIT $dataAwal, $dataPerhalaman";
+    } else {
+        $search = "SELECT siswa.id as id, siswa.nama_siswa as nama, siswa.NIS as nis, kelas.nama_kelas as kelas, kelas.jurusan as jurusan FROM siswa JOIN kelas ON siswa.kelas_id = kelas.id WHERE siswa.nama_siswa LIKE '%$keyword%' AND kelas.jurusan LIKE '%$filter%' ORDER BY siswa.nama_siswa ASC LIMIT $dataAwal, $dataPerhalaman";
+    }
+
+    //return var_dump( LIMIT $dataAwal, $dataPerhalaman
 
     return show($search);
 
@@ -288,13 +302,27 @@ function cariGuru($data) {
 
     $keyword = $data["keyword"];
     $filter = $data["filter"];
+
+    if(empty($keyword)) {
+        $guru = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE mapel.id LIKE '%$filter%' ORDER BY guru.nama_guru ASC";
+    } elseif (empty($filter)) {
+        $guru = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%' ORDER BY guru.nama_guru ASC";
+    } else {
+        $guru = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%' AND mapel.id LIKE '%$filter%' ORDER BY guru.nama_guru ASC ";
+    }
+
+    $totalData = count(show($guru));
+    $dataPerhalaman = 5;
+    $jumlahHalaman = ceil($totalData/$dataPerhalaman);
+    $halamanAktif = 1;
+    $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
     
     if(empty($keyword)) {
-        $search = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE mapel.id LIKE '%$filter%' ORDER BY guru.nama_guru ASC";
+        $search = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE mapel.id LIKE '%$filter%' ORDER BY guru.nama_guru ASC LIMIT $dataAwal, $dataPerhalaman";
     } elseif (empty($filter)) {
-        $search = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%' ORDER BY guru.nama_guru ASC";
+        $search = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%' ORDER BY guru.nama_guru ASC LIMIT $dataAwal, $dataPerhalaman";
     } else {
-        $search = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%' AND mapel.id LIKE '%$filter%' ORDER BY guru.nama_guru ASC ";
+        $search = "SELECT guru.id as id, guru.nama_guru as nama, guru.NIG as nig, mapel.nama_mapel as mapel FROM guru JOIN mapel ON guru.mapel_id = mapel.id WHERE nama_guru LIKE '%$keyword%' AND mapel.id LIKE '%$filter%' ORDER BY guru.nama_guru ASC LIMIT $dataAwal, $dataPerhalaman ";
     }
 
     return show($search);
@@ -309,7 +337,15 @@ function cariMapel($data) {
         return false;
     }
 
-    $search = "SELECT * FROM mapel WHERE nama_mapel LIKE '%$keyword%' ORDER BY mapel.nama_mapel ASC";
+    $mapel = "SELECT * FROM mapel WHERE nama_mapel LIKE '%$keyword%' ORDER BY mapel.nama_mapel ASC";
+
+    $totalData = count(show($mapel));
+    $dataPerhalaman = 5;
+    $jumlahHalaman = ceil($totalData/$dataPerhalaman);
+    $halamanAktif = 1;
+    $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
+
+    $search = "SELECT * FROM mapel WHERE nama_mapel LIKE '%$keyword%' ORDER BY mapel.nama_mapel ASC LIMIT $dataAwal, $dataPerhalaman";
 
     return show($search);
 
@@ -318,13 +354,27 @@ function cariMapel($data) {
 function cariKelas($data) {
     $keyword = $data["keyword"];
     $filter = $data["filter"];
+
+    if(empty($keyword)) {
+        $kelas = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id WHERE jurusan LIKE '%$filter%'" ;
+    } elseif(empty($filter)) {
+        $kelas = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id  WHERE nama_kelas LIKE '%$keyword%'";
+    } else {
+        $kelas = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id  WHERE jurusan LIKE '%$keyword%' AND status LIKE '%$filter%'";
+    }
+
+    $totalData = count(show($kelas));
+    $dataPerhalaman = 5;
+    $jumlahHalaman = ceil($totalData/$dataPerhalaman);
+    $halamanAktif = 1;
+    $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
         
     if(empty($keyword)) {
-        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id WHERE jurusan LIKE '%$filter%'" ;
+        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id WHERE jurusan LIKE '%$filter%' LIMIT $dataAwal, $dataPerhalaman" ;
     } elseif(empty($filter)) {
-        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id  WHERE nama_kelas LIKE '%$keyword%'";
+        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id  WHERE nama_kelas LIKE '%$keyword%' LIMIT $dataAwal, $dataPerhalaman";
     } else {
-        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id  WHERE jurusan LIKE '%$keyword%' AND status LIKE '%$filter%'";
+        $search = "SELECT kelas.id, kelas.nama_kelas, kelas.jurusan, guru.nama_guru FROM kelas JOIN guru ON kelas.wali_kelas = guru.id  WHERE jurusan LIKE '%$keyword%' AND status LIKE '%$filter%' LIMIT $dataAwal, $dataPerhalaman";
     }
 
     //return var_dump($filter);
@@ -337,13 +387,26 @@ function cariUSer($data) {
     $keyword = $data["keyword"];
     $filter = $data["filter"];
 
-        
     if(empty($keyword)) {
-        $search = "SELECT * from user  WHERE status LIKE '%$filter%'" ;
+        $user = "SELECT * from user  WHERE status LIKE '%$filter%'" ;
     } elseif(empty($filter)) {
-        $search = "SELECT * from user  WHERE username LIKE '%$keyword%'";
+        $user = "SELECT * from user  WHERE username LIKE '%$keyword%'";
     } else {
-        $search = "SELECT * from user WHERE username LIKE '%$keyword%' AND status LIKE '%$filter%'";
+        $user = "SELECT * from user WHERE username LIKE '%$keyword%' AND status LIKE '%$filter%'";
+    }    
+
+    $totalData = count(show($user));
+    $dataPerhalaman = 5;
+    $jumlahHalaman = ceil($totalData/$dataPerhalaman);
+    $halamanAktif = 1;
+    $dataAwal = ($halamanAktif * $dataPerhalaman) - $dataPerhalaman;
+
+    if(empty($keyword)) {
+        $search = "SELECT * from user  WHERE status LIKE '%$filter%' LIMIT $dataAwal, $dataPerhalaman" ;
+    } elseif(empty($filter)) {
+        $search = "SELECT * from user  WHERE username LIKE '%$keyword%' LIMIT $dataAwal, $dataPerhalaman";
+    } else {
+        $search = "SELECT * from user WHERE username LIKE '%$keyword%' AND status LIKE '%$filter%' LIMIT $dataAwal, $dataPerhalaman";
     }
 
     //return var_dump($filter);
