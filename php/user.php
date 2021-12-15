@@ -98,7 +98,10 @@ if(isset($_POST["find"])) {
                 <td class="table-body"><?= $usr["username"] ?></td>
                 <td class="table-body"><?= $usr["email"] ?></td>
                 <td class="table-body"><?= $usr["status"] ?></td>
-                <td class="table-body"><?= $usr["Created_at"] ?></td>
+                <?php
+                  $date = date('d M Y, G:I:s ',strtotime($usr["Created_at"]));
+                ?>
+                <td class="table-body"><?= $date ?></td>
 
                   <?php if(isset($_SESSION["admin"])) : ?> 
                     <td>

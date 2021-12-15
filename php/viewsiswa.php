@@ -61,7 +61,10 @@ $kelasID = $_GET["kelas"];
         <!-- HEADER -->
         <div class="header d-flex">
             <p><i class="fas fa-user-graduate mx-2"></i><?=$jumlahSiswa?></p>
-            <a class="btn btn-outline-success" href="reportnilai.php?kelas=<?=$kelasID?>" target="blank">Report</a>
+            <div class="d-flex">
+                <a class="btn btn-outline-danger mx-1" href="reportnilai.php?kelas=<?=$kelasID?>" target="blank">PDF</a>
+                <a class="btn btn-outline-success mx-1" href="reportnilaiexcel.php?kelas=<?=$kelasID?>" target="blank">Excel</a>
+            </div>
         </div>
 
         <!-- BODY -->

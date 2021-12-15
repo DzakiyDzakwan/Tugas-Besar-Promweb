@@ -99,7 +99,7 @@ $tugas = show("SELECT nama_tugas FROM tugas WHERE id = $tugasID")[0];
                                 <div class="overflow-auto" style="height: 210px;">
 
                                 <?php foreach($jawaban as $jwbn) : ?>
-                                    <?php $date = date('d M Y' , strtotime($jwbn["waktu"])) ?>
+                                    <?php $date = date('d M Y, G:I:s' , strtotime($jwbn["waktu"])) ?>
                                     <li class="list-group-item"><?=$jwbn["nama_siswa"]?>,<?=$date?></li>
                                 <?php endforeach ; ?>
 
