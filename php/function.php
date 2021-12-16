@@ -4,71 +4,70 @@ $connection = mysqli_connect("localhost","root","","tubes");
 
 function daftar($data) {
 
-global $connection;
+    global $connection;
 
-$username = strtolower(stripslashes($data["uname"]));
-$email = stripslashes($data["email"]);
-$password = mysqli_real_escape_string($connection, $data["password1"]);
-$password2 = mysqli_real_escape_string($connection, $data["password2"]);
-$status = strtoupper($data["status"]);
-
-
-//check data kosong
-if (empty($username) || empty($password) || empty($email) || empty($password2) ) {
-    return false;
-}
-
-//Check Ketersediaan email
-$emailCheck = mysqli_query($connection, "SELECT email FROM user WHERE email = '$email'");
-
-if(mysqli_fetch_assoc($emailCheck)) {
-    return false;
-}
-
-//check ketersedian username
-$usernameCheck = mysqli_query($connection, "SELECT username FROM user WHERE username = '$username'");
-
-if (mysqli_fetch_assoc($usernameCheck)) {
-    return false;
-}
-
- //passwordconfirmation
- if ($password !== $password2) {
-    return false;
-}
-
-//passwordhash
-
-$password = password_hash($password, PASSWORD_DEFAULT);
+    $username = strtolower(stripslashes($data["uname"]));
+    $email = stripslashes($data["email"]);
+    $password = mysqli_real_escape_string($connection, $data["password1"]);
+    $password2 = mysqli_real_escape_string($connection, $data["password2"]);
+    $status = strtoupper($data["status"]);
 
 
+    //check data kosong
+    if (empty($username) || empty($password) || empty($email) || empty($password2) ) {
+        return false;
+    }
 
-$insert = mysqli_query($connection, "INSERT INTO user(username,password,email,status) VALUES ('$username','$password','$email','$status')");
+    //Check Ketersediaan email
+    $emailCheck = mysqli_query($connection, "SELECT email FROM user WHERE email = '$email'");
 
-return mysqli_affected_rows($connection) ;
+    if(mysqli_fetch_assoc($emailCheck)) {
+        return false;
+    }
+
+    //check ketersedian username
+    $usernameCheck = mysqli_query($connection, "SELECT username FROM user WHERE username = '$username'");
+
+    if (mysqli_fetch_assoc($usernameCheck)) {
+        return false;
+    }
+
+    //passwordconfirmation
+    if ($password !== $password2) {
+        return false;
+    }
+
+    //passwordhash
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+
+
+    $insert = mysqli_query($connection, "INSERT INTO user(username,password,email,status) VALUES ('$username','$password','$email','$status')");
+
+    return mysqli_affected_rows($connection) ;
 
 }
 
 function login($data) {
 
-global $connection ;
+    global $connection ;
 
-$username = $data["uname"];
-$password = $password;
+    $username = $data["uname"];
+    $password = $password;
 
-//check username
+    //check username
 
-$dataCheck = mysqli_query($connection, "SELECT * FROM user WHERE username = '$username'");
+    $dataCheck = mysqli_query($connection, "SELECT * FROM user WHERE username = '$username'");
 
-if (mysqli_num_rows($dataCheck) > 0) {
+    if (mysqli_num_rows($dataCheck) > 0) {
 
-    $row = mysqli_fetch_assoc($dataCheck);
+        $row = mysqli_fetch_assoc($dataCheck);
 
+
+    }
 
 }
-
-}
-
 
 function addGuru($data) {
 
